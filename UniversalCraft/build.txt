@@ -1,0 +1,9 @@
+author = Creeper Da Snek
+version = 1.4.0
+displayName = Universal Crafter
+hideCode = false
+hideResources = false
+homepage = https://forums.terraria.org/index.php?threads/universal-crafter.62025/
+includeSource = true
+weakReferences = CalamityMod@1.0, SacredTools@1.0, Bluemagic@1.0, Pumpking@1.0, Tremor@1.3
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
