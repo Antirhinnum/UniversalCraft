@@ -13,6 +13,10 @@ namespace UniversalCraft
             };
         }
 
+        /*public static bool SacredToolsLoaded = ModLoader.GetMod("SacredTools") != null;
+
+
+
         public static Mod Thorium;
         public static Mod SacredTools;
         public static Mod Calamity;
@@ -34,6 +38,6 @@ namespace UniversalCraft
             SacredTools = null;
             Calamity = null;
             Tremor = null;
-        }
+        }*/
     }
 }

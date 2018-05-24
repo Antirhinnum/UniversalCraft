@@ -13,3 +13,5 @@ v1.3: Added a ton of modded crafting stations.
 v1.3.1: Added Post-ML Crafting Stations. These apply to the Crafter after defeating certain bosses, also added more mods' crafting stations.
 v1.3.2: Added crafting stations from Elemental Unleash and Elements Awoken.
 v1.4.0: Completely redid the Crafter. Now, stations are added as you progress. You can right-click the tile to see current stations.
+v1.4.1: Right-clicking the tile no longer spams the tilelist into your chat fifty times.
+v1.4.2: Fixed Wing of the World unlocking Post-Skeletron as opposed to Post-EoW/BoC. Added a different system for the right-click, now it automatically adds 'a' and 'an' to tiles and adds 'and' at the end. Removed unecessary bits of code.
