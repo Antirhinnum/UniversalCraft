@@ -19,12 +19,12 @@ namespace UniversalCraft.Tiles
             {
                 Main.LocalPlayer.adjWater = true;
 
-                if (Main.hardMode == true)
+                if (NPC.downedBoss3)
                 {
                     Main.LocalPlayer.adjLava = true;
                 }
 
-                if (NPC.downedQueenBee == true)
+                if (NPC.downedQueenBee)
                 {
                     Main.LocalPlayer.adjHoney = true;
                 }
@@ -34,11 +34,11 @@ namespace UniversalCraft.Tiles
 
             if (type == mod.TileType("UniversalCrafter"))
             {
-                if (NPC.downedSlimeKing == true)
+                if (NPC.downedSlimeKing)
                 {
                     adjTile.Add(220); //Solidifier
                 }
-                if (NPC.downedBoss1 == true)
+                if (NPC.downedBoss1)
                 {
                     adjTile.Add(26); //Demon Altar
                     if (ModLoader.GetLoadedMods().Contains("ThoriumMod"))
@@ -47,11 +47,19 @@ namespace UniversalCraft.Tiles
                         adjTile.Add(thorium.TileType("ArcaneArmorFabricator")); //Arcane Armor Fabricator
                     }
                 }
-                if (NPC.downedGoblins == true)
+                if (NPC.downedGoblins)
                 {
                     adjTile.Add(114); //Tinkerer's Workshop
                 }
-                if (NPC.downedBoss3 == true)
+                if (NPC.downedBoss2)
+                {
+                    if (ModLoader.GetLoadedMods().Contains("AlchemistNPC"))
+                    {
+                        Mod alchemistNPC = ModLoader.GetMod("AlchemistNPC");
+                        adjTile.Add(alchemistNPC.TileType("WingoftheWorld"));
+                    }
+                }
+                if (NPC.downedBoss3)
                 {
                     adjTile.Add(77); //Hellforge
                     adjTile.Add(300); //Bone Welder
@@ -77,11 +85,6 @@ namespace UniversalCraft.Tiles
                         Mod FFF = ModLoader.GetMod("CosmeticVariety");
                         adjTile.Add(FFF.TileType("BeverageBrewer"));
                     }
-                    if (ModLoader.GetLoadedMods().Contains("AlchemistNPC"))
-                    {
-                        Mod alchemistNPC = ModLoader.GetMod("AlchemistNPC");
-                        adjTile.Add(alchemistNPC.TileType("WingoftheWorld"));
-                    }
                     if (ModLoader.GetLoadedMods().Contains("Laugicality"))
                     {
                         Mod logic = ModLoader.GetMod("Laugicality");
@@ -93,12 +96,12 @@ namespace UniversalCraft.Tiles
                         adjTile.Add(tremor.TileType("DevilForge"));
                     }
                 }
-                if (NPC.downedQueenBee == true)
+                if (NPC.downedQueenBee)
                 {
                     adjTile.Add(243); //Imbuing Station
                     adjTile.Add(308); //Honey Dispenser
                 }
-                if (Main.hardMode == true)
+                if (Main.hardMode)
                 {
                     adjTile.Add(133); //Mythril Anvil
                     adjTile.Add(134); //Adamantite Forge
@@ -169,7 +172,7 @@ namespace UniversalCraft.Tiles
                         adjTile.Add(under.TileType("DTEM"));
                     }
                 }
-                if (NPC.downedPlantBoss == true)
+                if (NPC.downedPlantBoss)
                 {
                     if (ModLoader.GetLoadedMods().Contains("Laugicality"))
                     {
@@ -181,7 +184,7 @@ namespace UniversalCraft.Tiles
                         adjTile.Add(tremor.TileType("AlchematorTile"));
                     }
                 }
-                if (NPC.downedGolemBoss == true)
+                if (NPC.downedGolemBoss)
                 {
                     adjTile.Add(303); //Lihzahrd Furnace
                     adjTile.Add(237); //Lihzahrd Altar
@@ -192,7 +195,7 @@ namespace UniversalCraft.Tiles
                         adjTile.Add(gRealm.TileType("ArcaneWeldingStation"));
                     }
                 }
-                if (NPC.downedAncientCultist == true)
+                if (NPC.downedAncientCultist)
                 {
                     adjTile.Add(412); //Ancient Manipulator
 
@@ -207,7 +210,7 @@ namespace UniversalCraft.Tiles
                         adjTile.Add(alchemistNPC.TileType("MateriaTransmutator"));
                     }
                 }
-                if (NPC.downedMoonlord == true)
+                if (NPC.downedMoonlord)
                 {
                     if (ModLoader.GetLoadedMods().Contains("CosmeticVariety"))
                     {
@@ -241,30 +244,30 @@ namespace UniversalCraft.Tiles
 
                 if (sacredTools != null)
                 {
-                    if (Abadabadingdong == true || Abadabadingdong2 == true)
+                    if (Abadabadingdong || Abadabadingdong2)
                     {
                         adjTile.Add(sacredTools.TileType("OblivionForge")); //Oblivion Forge
                     }
 
-                    if (MagicWaifuNuba == true)
+                    if (MagicWaifuNuba)
                     {
                         adjTile.Add(sacredTools.TileType("LunarAltar")); //Lunatic Infuser
                     }
 
-                    if (SnakesAreSuperiorBitch == true)
+                    if (SnakesAreSuperiorBitch)
                     {
                         adjTile.Add(sacredTools.TileType("FlameAnvil")); //Flarium Anvil
                         adjTile.Add(sacredTools.TileType("FlameWorkbench")); //Flarium Workbench
                         adjTile.Add(sacredTools.TileType("FlameForge")); //Flarium Forge
                     }
 
-                    if (Deadfreeze == true)
+                    if (Deadfreeze)
                     {
                         adjTile.Add(sacredTools.TileType("FrostAnvil")); //Cernium Anvil
                         adjTile.Add(sacredTools.TileType("FrostForge")); //Cernium Forge
                     }
 
-                    if (TotallyNotDanYami == true)
+                    if (TotallyNotDanYami)
                     {
                         adjTile.Add(sacredTools.TileType("AsthralWorkbench")); //Asthraltite Workbench
                     }
@@ -272,7 +275,7 @@ namespace UniversalCraft.Tiles
 
                 if (calamity != null)
                 {
-                    if (Doggo == true)
+                    if (Doggo)
                     {
                         adjTile.Add(calamity.TileType("DraedonsForge")); //Draedon's Forge
                     }
@@ -280,7 +283,7 @@ namespace UniversalCraft.Tiles
 
                 if (bluemagic != null)
                 {
-                    if (Abomination == true && NPC.downedMoonlord)
+                    if (Abomination && NPC.downedMoonlord)
                     {
                         adjTile.Add(bluemagic.TileType("PuriumForge")); //Purium Forge
                         adjTile.Add(bluemagic.TileType("PuriumAnvil")); //Purium Anvil
@@ -289,7 +292,7 @@ namespace UniversalCraft.Tiles
 
                 if (pumpking != null)
                 {
-                    if (TerraLord == true)
+                    if (TerraLord)
                     {
                         adjTile.Add(pumpking.TileType("TerraForge"));
                     }
@@ -297,7 +300,7 @@ namespace UniversalCraft.Tiles
 
                 //if (tremor != null)
                 //{
-                //    if (Tiki == true)
+                //    if (Tiki)
                 //    {
                 //        adjTile.Add(tremor.TileType("GreatAnvilTile"));
                 //    }

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using System;
 
 namespace UniversalCraft.Tiles
 {
@@ -196,6 +197,12 @@ namespace UniversalCraft.Tiles
                 adjTile.Add(star.TileType("GeologicalCompressor"));
             }
 
+            if (ModLoader.GetLoadedMods().Contains("VampKnives"))
+            {
+                Mod knives = ModLoader.GetMod("VampKnives");
+                adjTile.Add(knives.TileType("KnifeBench"));
+            }
+
             adjTiles = adjTile.ToArray();
             #endregion
         }
@@ -205,128 +212,128 @@ namespace UniversalCraft.Tiles
             #region Right-Click List
             List<string> rightClick = new List<string>();
 
-            rightClick.Add("A Workbench"); //WorkBenches
-            rightClick.Add("a Furnace"); //Furnaces
-            rightClick.Add("an Anvil"); //Anvils
-            rightClick.Add("a Bottle"); //Bottles
-            rightClick.Add("a Sawmill"); //Sawmill
-            rightClick.Add("a Loom"); //Loom
-            rightClick.Add("a Chair"); //Chairs
-            rightClick.Add("a Table"); //Tables & Tables2
-            rightClick.Add("a Cooking Pot"); //CookingPots
-            rightClick.Add("a Dye Vat"); //DyeVat
-            rightClick.Add("a Bookcase"); //Bookcases
-            rightClick.Add("a Keg"); //Kegs
-            rightClick.Add("a Heavy Work Bench"); //HeavyWorkBench
-            rightClick.Add("a Glass Kiln"); //GlassKiln
-            rightClick.Add("a Ice Machine"); //IceMachine
-            rightClick.Add("a Living Loom"); //LivingLoom
-            rightClick.Add("a Sky Mill"); //SkyMill
-            rightClick.Add("a Sink"); //Sinks
-            rightClick.Add("a Campfire"); //Campfire
-            rightClick.Add("a block of Living Wood"); //Living Wood
-            rightClick.Add("a block of Cactus"); //Cactus
-            rightClick.Add("a Firefly in a Bottle"); //Firefly in a Bottle
-            rightClick.Add("a Book"); //Book
-            rightClick.Add("a Water Fountain"); //Water Fountain
+            rightClick.Add("Workbench"); //WorkBenches
+            rightClick.Add("Furnace"); //Furnaces
+            rightClick.Add("Anvil"); //Anvils
+            rightClick.Add("Bottle"); //Bottles
+            rightClick.Add("Sawmill"); //Sawmill
+            rightClick.Add("Loom"); //Loom
+            rightClick.Add("Chair"); //Chairs
+            rightClick.Add("Table"); //Tables & Tables2
+            rightClick.Add("Cooking Pot"); //CookingPots
+            rightClick.Add("Dye Vat"); //DyeVat
+            rightClick.Add("Bookcase"); //Bookcases
+            rightClick.Add("Keg"); //Kegs
+            rightClick.Add("Heavy Work Bench"); //HeavyWorkBench
+            rightClick.Add("Glass Kiln"); //GlassKiln
+            rightClick.Add("Ice Machine"); //IceMachine
+            rightClick.Add("Living Loom"); //LivingLoom
+            rightClick.Add("Sky Mill"); //SkyMill
+            rightClick.Add("Sink"); //Sinks
+            rightClick.Add("Campfire"); //Campfire
+            rightClick.Add("block of Living Wood"); //Living Wood
+            rightClick.Add("block of Cactus"); //Cactus
+            rightClick.Add("Firefly in a Bottle"); //Firefly in a Bottle
+            rightClick.Add("Book"); //Book
+            rightClick.Add("Water Fountain"); //Water Fountain
             rightClick.Add("Water");
 
             if (ModLoader.GetLoadedMods().Contains("CosmeticVariety"))
             {
-                rightClick.Add("a Sculpting Stand");
-                rightClick.Add("a Canning Station");
-                rightClick.Add("a Chill Machine");
-                rightClick.Add("an Apiray");
-                rightClick.Add("an Oven");
-                rightClick.Add("an Easel");
+                rightClick.Add("Sculpting Stand");
+                rightClick.Add("Canning Station");
+                rightClick.Add("Chill Machine");
+                rightClick.Add("Apiray");
+                rightClick.Add("Oven");
+                rightClick.Add("Easel");
             }
 
             if (ModLoader.GetLoadedMods().Contains("Tremor"))
             {
-                rightClick.Add("a Magic Workbench");
-                rightClick.Add("an Altar of Enchantments");
-                rightClick.Add("a Mineral Transmutator");
-                rightClick.Add("a Flesh Workstation");
-                rightClick.Add("a Blast Furnace");
+                rightClick.Add("Magic Workbench");
+                rightClick.Add("Altar of Enchantments");
+                rightClick.Add("Mineral Transmutator");
+                rightClick.Add("Flesh Workstation");
+                rightClick.Add("Blast Furnace");
             }
 
             if (ModLoader.GetLoadedMods().Contains("ThoriumMod"))
             {
-                rightClick.Add("a Thorium Anvil");
+                rightClick.Add("Thorium Anvil");
             }
 
             if (ModLoader.GetLoadedMods().Contains("Antiaris"))
             {
-                rightClick.Add("a Compressor");
+                rightClick.Add("Compressor");
             }
 
             if (ModLoader.GetLoadedMods().Contains("CrystilliumMod"))
             {
-                rightClick.Add("a Crystal Fountain");
-                rightClick.Add("a Crystal Wood Workbench");
+                rightClick.Add("Crystal Fountain");
+                rightClick.Add("Crystal Wood Workbench");
             }
 
             if (ModLoader.GetLoadedMods().Contains("Laugicality"))
             {
-                rightClick.Add("an Alchemical Infuser");
-                rightClick.Add("a Laugical Workbench");
+                rightClick.Add("Alchemical Infuser");
+                rightClick.Add("Laugical Workbench");
             }
 
             if (ModLoader.GetLoadedMods().Contains("SpiritMod"))
             {
-                rightClick.Add("an Altar of Creation");
+                rightClick.Add("Altar of Creation");
             }
 
             if (ModLoader.GetLoadedMods().Contains("ElementsAwoken"))
             {
                 if (ModLoader.GetLoadedMods().Contains("JoostMod"))
                 {
-                    rightClick.Add("an Elements Awoken Elemental Forge");
+                    rightClick.Add("Elements Awoken Elemental Forge");
                 }
                 else
                 {
-                    rightClick.Add("an Elemental Forge");
+                    rightClick.Add("Elemental Forge");
                 }
             }
 
             if (ModLoader.GetLoadedMods().Contains("RawExpansion"))
             {
-                rightClick.Add("an Upgrader Station");
+                rightClick.Add("Upgrader Station");
             }
 
             if (ModLoader.GetLoadedMods().Contains("CheezeMod"))
             {
-                rightClick.Add("a MegaCorp Vendor");
+                rightClick.Add("MegaCorp Vendor");
             }
 
             if (ModLoader.GetLoadedMods().Contains("MoAddon"))
             {
-                rightClick.Add("a Snow Workbench");
+                rightClick.Add("Snow Workbench");
             }
 
             if (ModLoader.GetLoadedMods().Contains("thespatiummod"))
             {
-                rightClick.Add("a Golden Binder");
+                rightClick.Add("Golden Binder");
             }
 
             if (ModLoader.GetLoadedMods().Contains("OreConversion"))
             {
-                rightClick.Add("an Ore Conversion Table");
+                rightClick.Add("Ore Conversion Table");
             }
 
             if (ModLoader.GetLoadedMods().Contains("Exodus"))
             {
-                rightClick.Add("a Slime Workstation");
+                rightClick.Add("Slime Workstation");
             }
 
             if (ModLoader.GetLoadedMods().Contains("CookieModBeta2"))
             {
-                rightClick.Add("a Cookie Workbench");
+                rightClick.Add("Cookie Workbench");
             }
 
             if (ModLoader.GetLoadedMods().Contains("FlareStone"))
             {
-                rightClick.Add("an Accelerator");
+                rightClick.Add("Accelerator");
             }
 
             if (ModLoader.GetLoadedMods().Contains("Bismuth"))
@@ -336,146 +343,154 @@ namespace UniversalCraft.Tiles
 
             if (ModLoader.GetLoadedMods().Contains("BuildPlanner"))
             {
-                ;
                 rightClick.Add("Scaffolding");
             }
 
             if (ModLoader.GetLoadedMods().Contains("MagicStorage"))
             {
-                rightClick.Add("part of a Magic Storage System");
+                rightClick.Add("part of Magic Storage System");
             }
 
             if (ModLoader.GetLoadedMods().Contains("StarWarsMod"))
             {
-                rightClick.Add("a Geological Compressor");
+                rightClick.Add("Geological Compressor");
+            }
+
+            if (ModLoader.GetLoadedMods().Contains("VampKnives"))
+            {
+                Mod knives = ModLoader.GetMod("VampKnives");
+                rightClick.Add("Knife Worktable");
             }
 
 
-            if (NPC.downedSlimeKing == true)
+            if (NPC.downedSlimeKing)
             {
-                rightClick.Add("a Solidifier"); //Solidifier
+                rightClick.Add("Solidifier"); //Solidifier
             }
-            if (NPC.downedBoss1 == true)
+            if (NPC.downedBoss1)
             {
-                rightClick.Add("a Demon Altar"); //Demon Altar
+                rightClick.Add("Demon Altar"); //Demon Altar
                 if (ModLoader.GetLoadedMods().Contains("ThoriumMod"))
                 {
                     Mod thorium = ModLoader.GetMod("ThoriumMod");
-                    rightClick.Add("an Arcane Armor Fabricator"); //Arcane Armor Fabricator
+                    rightClick.Add("Arcane Armor Fabricator"); //Arcane Armor Fabricator
                 }
             }
-            if (NPC.downedGoblins == true)
+            if (NPC.downedGoblins)
             {
-                rightClick.Add("a Tinkerer's Workshop"); //Tinkerer's Workshop
+                rightClick.Add("Tinkerer's Workshop"); //Tinkerer's Workshop
             }
-            if (NPC.downedBoss3 == true)
+            if (NPC.downedBoss2)
             {
-                rightClick.Add("a Hellforge"); //Hellforge
-                rightClick.Add("a Bone Welder"); //Bone Welder
+                if (ModLoader.GetLoadedMods().Contains("AlchemistNPC"))
+                {
+                    Mod alchemistNPC = ModLoader.GetMod("AlchemistNPC");
+                    rightClick.Add("Wing of the World");
+                }
+            }
+            if (NPC.downedBoss3)
+            {
+                rightClick.Add("Hellforge"); //Hellforge
+                rightClick.Add("Bone Welder"); //Bone Welder
                 if (ModLoader.GetLoadedMods().Contains("Tremor"))
                 {
-                    rightClick.Add("an Alchemy Station"); //Alchemy Station
+                    rightClick.Add("Alchemy Station"); //Alchemy Station
                 }
                 else
                 {
-                    rightClick.Add("a Vanilla Alchemy Station"); //Alchemy Station
+                    rightClick.Add("Vanilla Alchemy Station"); //Alchemy Station
                 }
-                rightClick.Add("a Bewitching Table"); //Bewitching Table
+                rightClick.Add("Bewitching Table"); //Bewitching Table
                 rightClick.Add("Lava");
                 if (ModLoader.GetLoadedMods().Contains("BetterBoneWelder"))
                 {
                     Mod bone = ModLoader.GetMod("BetterBoneWelder");
-                    rightClick.Add("a Daemon Forge");
+                    rightClick.Add("Daemon Forge");
                 }
                 if (ModLoader.GetLoadedMods().Contains("Osmium"))
                 {
                     Mod os = ModLoader.GetMod("Osmium");
-                    rightClick.Add("a Bar Press");
+                    rightClick.Add("Bar Press");
                 }
                 if (ModLoader.GetLoadedMods().Contains("Project__C"))
                 {
                     Mod projC = ModLoader.GetMod("Project__C");
-                    rightClick.Add("an Energy Condenser");
+                    rightClick.Add("Energy Condenser");
                 }
                 if (ModLoader.GetLoadedMods().Contains("CosmeticVariety"))
                 {
                     Mod FFF = ModLoader.GetMod("CosmeticVariety");
-                    rightClick.Add("a Beverage Brewer");
-                }
-                if (ModLoader.GetLoadedMods().Contains("AlchemistNPC"))
-                {
-                    Mod alchemistNPC = ModLoader.GetMod("AlchemistNPC");
-                    rightClick.Add("a Wing of the World");
+                    rightClick.Add("Beverage Brewer");
                 }
                 if (ModLoader.GetLoadedMods().Contains("Laugicality"))
                 {
                     Mod logic = ModLoader.GetMod("Laugicality");
-                    rightClick.Add("a Crystalline Infuser");
+                    rightClick.Add("Crystalline Infuser");
                 }
                 if (ModLoader.GetLoadedMods().Contains("Tremor"))
                 {
-                    rightClick.Add("a Necromaniac Workbench");
-                    rightClick.Add("a Devil Forge");
+                    rightClick.Add("Necromaniac Workbench");
+                    rightClick.Add("Devil Forge");
                 }
             }
-            if (NPC.downedQueenBee == true)
+            if (NPC.downedQueenBee)
             {
-                rightClick.Add("an Imbuing Station"); //Imbuing Station
-                rightClick.Add("a Honey Dispenser"); //Honey Dispenser
+                rightClick.Add("Imbuing Station"); //Imbuing Station
+                rightClick.Add("Honey Dispenser"); //Honey Dispenser
                 rightClick.Add("Honey");
             }
-            if (Main.hardMode == true)
+            if (Main.hardMode)
             {
-                rightClick.Add("a Mythril Anvil"); //Mythril Anvil
-                rightClick.Add("an Adamantite Forge"); //Adamantite Forge
-                rightClick.Add("a Crystal Ball"); //Crystal Ball
-                rightClick.Add("a Meat Grinder"); //Meat Grinder
-                rightClick.Add("an Autohammer"); //Autohammer
+                rightClick.Add("Mythril Anvil"); //Mythril Anvil
+                rightClick.Add("Adamantite Forge"); //Adamantite Forge
+                rightClick.Add("Crystal Ball"); //Crystal Ball
+                rightClick.Add("Meat Grinder"); //Meat Grinder
+                rightClick.Add("Autohammer"); //Autohammer
                 if (ModLoader.GetLoadedMods().Contains("CosmeticVariety"))
                 {
                     Mod FFF = ModLoader.GetMod("CosmeticVariety");
-                    rightClick.Add("a Shadow Extraltar");
+                    rightClick.Add("Shadow Extraltar");
                 }
                 if (ModLoader.GetLoadedMods().Contains("JoostMod"))
                 {
                     Mod joost = ModLoader.GetMod("JoostMod");
                     if (ModLoader.GetLoadedMods().Contains("ElementsAwoken"))
                     {
-                        rightClick.Add("a Joost Elemental Forge");
+                        rightClick.Add("Joost Elemental Forge");
                     }
                     else
                     {
-                        rightClick.Add("an Elemental Forge");
+                        rightClick.Add("Elemental Forge");
                     }
                 }
                 if (ModLoader.GetLoadedMods().Contains("thespatiummod"))
                 {
                     Mod bind = ModLoader.GetMod("thespatiummod");
-                    rightClick.Add("a Colbalt Binder");
+                    rightClick.Add("Colbalt Binder");
                 }
                 if (ModLoader.GetLoadedMods().Contains("Laugicality"))
                 {
                     Mod logic = ModLoader.GetMod("Laugicality");
-                    rightClick.Add("a Mineral Enchanter");
+                    rightClick.Add("Mineral Enchanter");
                 }
                 if (ModLoader.GetLoadedMods().Contains("SpiritMod"))
                 {
                     Mod spirit = ModLoader.GetMod("SpiritMod");
-                    rightClick.Add("an Essense Distorter");
+                    rightClick.Add("Essense Distorter");
                 }
                 if (ModLoader.GetLoadedMods().Contains("Tremor"))
                 {
-                    rightClick.Add("a Recycler of Matter");
+                    rightClick.Add("Recycler of Matter");
                 }
             }
             if (NPC.downedMechBossAny)
             {
-                rightClick.Add("a Blend-O-Matic"); //Blend-O-Matic
-                rightClick.Add("a Flesh Cloning Vat"); //Flesh Cloning Vat
-                rightClick.Add("a Steampunk Boiler"); //Steampunk Boiler
+                rightClick.Add("Blend-O-Matic"); //Blend-O-Matic
+                rightClick.Add("Flesh Cloning Vat"); //Flesh Cloning Vat
+                rightClick.Add("Steampunk Boiler"); //Steampunk Boiler
                 if (ModLoader.GetLoadedMods().Contains("Bluemagic"))
                 {
-                    rightClick.Add("a Clentamistation");
+                    rightClick.Add("Clentamistation");
                 }
             }
             if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
@@ -483,84 +498,84 @@ namespace UniversalCraft.Tiles
                 if (ModLoader.GetLoadedMods().Contains("ThoriumMod"))
                 {
                     Mod thorium = ModLoader.GetMod("ThoriumMod");
-                    rightClick.Add("a Soul Forge"); //Soul Forge
+                    rightClick.Add("Soul Forge"); //Soul Forge
                 }
                 if (ModLoader.GetLoadedMods().Contains("CopperPlusMod"))
                 {
                     Mod copper = ModLoader.GetMod("CopperPlusMod");
-                    rightClick.Add("a Mechanical Forge");
-                    rightClick.Add("a Vigolythic Anvil");
+                    rightClick.Add("Mechanical Forge");
+                    rightClick.Add("Vigolythic Anvil");
                 }
                 if (ModLoader.GetLoadedMods().Contains("thespatiummod"))
                 {
                     Mod bind = ModLoader.GetMod("thespatiummod");
-                    rightClick.Add("a Soulful Binder");
+                    rightClick.Add("Soulful Binder");
                 }
                 if (ModLoader.GetLoadedMods().Contains("Undermod"))
                 {
                     Mod under = ModLoader.GetMod("Undermod");
-                    rightClick.Add("a Determination Extraction Machine");
+                    rightClick.Add("Determination Extraction Machine");
                 }
             }
-            if (NPC.downedPlantBoss == true)
+            if (NPC.downedPlantBoss)
             {
                 if (ModLoader.GetLoadedMods().Contains("Laugicality"))
                 {
                     Mod logic = ModLoader.GetMod("Laugicality");
-                    rightClick.Add("an Ancient Enchanter");
+                    rightClick.Add("Ancient Enchanter");
                 }
                 if (ModLoader.GetLoadedMods().Contains("Tremor"))
                 {
-                    rightClick.Add("an Alchemator");
+                    rightClick.Add("Alchemator");
                 }
             }
-            if (NPC.downedGolemBoss == true)
+            if (NPC.downedGolemBoss)
             {
-                rightClick.Add("a Lihzahrd Furnace"); //Lihzahrd Furnace
-                rightClick.Add("a Lihzahrd Altar"); //Lihzahrd Altar
+                rightClick.Add("Lihzahrd Furnace"); //Lihzahrd Furnace
+                rightClick.Add("Lihzahrd Altar"); //Lihzahrd Altar
 
                 if (ModLoader.GetLoadedMods().Contains("GRealm") && ModLoader.GetLoadedMods().Contains("BaseMod"))
                 {
                     Mod gRealm = ModLoader.GetMod("GRealm");
-                    rightClick.Add("an Arcane Welding Station");
+                    rightClick.Add("Arcane Welding Station");
                 }
             }
-            if (NPC.downedAncientCultist == true)
+            if (NPC.downedAncientCultist)
             {
-                rightClick.Add("an Ancient Manipulator"); //Ancient Manipulator
+                rightClick.Add("Ancient Manipulator"); //Ancient Manipulator
 
                 if (ModLoader.GetLoadedMods().Contains("Fargowiltas"))
                 {
                     Mod fargo = ModLoader.GetMod("Fargowiltas");
-                    rightClick.Add("a Crucible of the Cosmos");
+                    rightClick.Add("Crucible of the Cosmos");
                 }
                 if (ModLoader.GetLoadedMods().Contains("AlchemistNPC"))
                 {
                     Mod alchemistNPC = ModLoader.GetMod("AlchemistNPC");
-                    rightClick.Add("a Materia Transmutator");
+                    rightClick.Add("Materia Transmutator");
                 }
             }
-            if (NPC.downedMoonlord == true)
+            if (NPC.downedMoonlord)
             {
                 if (ModLoader.GetLoadedMods().Contains("CosmeticVariety"))
                 {
                     Mod FFF = ModLoader.GetMod("CosmeticVariety");
-                    rightClick.Add("an Aegis Contraption");
+                    rightClick.Add("Aegis Contraption");
                 }
                 if (ModLoader.GetLoadedMods().Contains("TheDeconstructor"))
                 {
                     Mod uncraft = ModLoader.GetMod("TheDeconstructor");
-                    rightClick.Add("a Lunar Deconstuctor");
+                    rightClick.Add("Lunar Deconstuctor");
                 }
                 if (ModLoader.GetLoadedMods().Contains("thespatiummod"))
                 {
                     Mod bind = ModLoader.GetMod("thespatiummod");
-                    rightClick.Add("a Celestial Binder");
+                    rightClick.Add("Celestial Binder");
                 }
                 if (ModLoader.GetLoadedMods().Contains("Tremor"))
                 {
-                    rightClick.Add("a Tremor Alchemy Station");
-                    rightClick.Add("a Starvil");
+                    rightClick.Add("Tremor Alchemy Station");
+                    rightClick.Add("Starvil");
                 }
             }
             if (NPC.downedSlimeKing || NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3 || NPC.downedQueenBee || Main.hardMode || NPC.downedMechBossAny || NPC.downedPlantBoss || NPC.downedGolemBoss || NPC.downedFishron || NPC.downedAncientCultist || NPC.downedMoonlord)
@@ -568,44 +583,44 @@ namespace UniversalCraft.Tiles
                 if (ModLoader.GetLoadedMods().Contains("Mysticality"))
                 {
                     Mod mystic = ModLoader.GetMod("Mysticality");
-                    rightClick.Add("an Omnibench");
+                    rightClick.Add("Omnibench");
                 }
             }
 
             if (sacredTools != null)
             {
-                if (Abadabadingdong == true || Abadabadingdong2 == true)
+                if (Abadabadingdong || Abadabadingdong2)
                 {
-                    rightClick.Add("an Oblivion Forge"); //Oblivion Forge
+                    rightClick.Add("Oblivion Forge"); //Oblivion Forge
                 }
 
-                if (MagicWaifuNuba == true)
+                if (MagicWaifuNuba)
                 {
-                    rightClick.Add("a Lunatic Infuser"); //Lunatic Infuser
+                    rightClick.Add("Lunatic Infuser"); //Lunatic Infuser
                 }
 
-                if (SnakesAreSuperiorBitch == true)
+                if (SnakesAreSuperiorBitch)
                 {
-                    rightClick.Add("a Flarium Anvil"); //Flarium Anvil
-                    rightClick.Add("a Flarium Workbench"); //Flarium Workbench
-                    rightClick.Add("a Flarium Forge"); //Flarium Forge
+                    rightClick.Add("Flarium Anvil"); //Flarium Anvil
+                    rightClick.Add("Flarium Workbench"); //Flarium Workbench
+                    rightClick.Add("Flarium Forge"); //Flarium Forge
                 }
 
-                if (Deadfreeze == true)
+                if (Deadfreeze)
                 {
-                    rightClick.Add("a Cernium Anvil"); //Cernium Anvil
-                    rightClick.Add("a Cernium Forge"); //Cernium Forge
+                    rightClick.Add("Cernium Anvil"); //Cernium Anvil
+                    rightClick.Add("Cernium Forge"); //Cernium Forge
                 }
 
-                if (TotallyNotDanYami == true)
+                if (TotallyNotDanYami)
                 {
-                    rightClick.Add("an Asthraltite Workbench"); //Asthraltite Workbench
+                    rightClick.Add("Asthraltite Workbench"); //Asthraltite Workbench
                 }
             }
 
             if (calamity != null)
             {
-                if (Doggo == true)
+                if (Doggo)
                 {
                     rightClick.Add("Draedon's Forge"); //Draedon's Forge
                 }
@@ -613,24 +628,40 @@ namespace UniversalCraft.Tiles
 
             if (bluemagic != null)
             {
-                if (Abomination == true && NPC.downedMoonlord)
+                if (Abomination && NPC.downedMoonlord)
                 {
-                    rightClick.Add("a Purium Forge"); //Purium Forge
-                    rightClick.Add("a Purium Anvil"); //Purium Anvil
+                    rightClick.Add("Purium Forge"); //Purium Forge
+                    rightClick.Add("Purium Anvil"); //Purium Anvil
                 }
             }
 
             if (pumpking != null)
             {
-                if (TerraLord == true)
+                if (TerraLord)
                 {
-                    rightClick.Add("a Terra Forge");
+                    rightClick.Add("Terra Forge"); //Terra Forge
                 }
             }
             #endregion
 
-            string tileList = string.Join(", ", rightClick.ToArray());
-            Main.NewText("Current active tiles: " + tileList);
+            var lastNdx = rightClick.Count - 1;
+            var sentence = "Current active tiles: " + String.Join(", ",
+                rightClick.Select((s, ndx) =>
+                {
+                    var ls = s.ToLower();
+                    string ret = "";
+                    if ("aeiou".Contains(ls[0]))
+                        ret = "an " + s;
+                    else if (ls.Contains("\'"))
+                        ret = s;
+                    else ret = "a " + s;
+                    if (ndx == lastNdx)
+                        ret = "and " + ret;
+                    return ret;
+                }).ToArray());
+            // This bit of code makes it so I don't have to personally add 'a' or 'an' in front of each word. It's inaccuarte, unfortunately.
+
+            Main.NewText(sentence);
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)
