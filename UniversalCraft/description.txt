@@ -3,15 +3,16 @@ This mod adds in a Universal Crafting Station, which functions as every Crafting
 If you would like a crafting station(s) to be added, contact me on TCF or elsewhere!
 
 Changelog: 
-v1.0.0.0: Released the mod.
-v1.1.0.0: Replaced my crappy sprites with the amazing ones done by Brendan.
+v1.0: Released the mod.
+v1.1: Replaced my crappy sprites with the amazing ones done by Brendan Scobal on TCF.
 v1.1.0.1: Fixed issues with the tile sprite (I had forgotten to partition it...).
 v1.1.1.2: Fixed the Crafter not having Tables2 and Sinks.
-v1.2.0.0: Finally found out how to add Lava and Honey to the tile!
+v1.2: Finally found out how to add Lava and Honey to the tile!
 v1.2.0.1: Updated to tModLoader v0.10.1.2, made open source.
 v1.3: Added a ton of modded crafting stations.
 v1.3.1: Added Post-ML Crafting Stations. These apply to the Crafter after defeating certain bosses, also added more mods' crafting stations.
 v1.3.2: Added crafting stations from Elemental Unleash and Elements Awoken.
-v1.4.0: Completely redid the Crafter. Now, stations are added as you progress. You can right-click the tile to see current stations.
+v1.4: Completely redid the Crafter. Now, stations are added as you progress. You can right-click the tile to see current stations.
 v1.4.1: Right-clicking the tile no longer spams the tilelist into your chat fifty times.
 v1.4.2: Fixed Wing of the World unlocking Post-Skeletron as opposed to Post-EoW/BoC. Added a different system for the right-click, now it automatically adds 'a' and 'an' to tiles and adds 'and' at the end. Removed unecessary bits of code.
+v1.5: Redid the right-click list: Now cycles through tiles every click (Vanilla, Vanilla Decor, Big Mods, Medium Mods, Small Mods). Added glowmask to tile. Changed recipe. Added/Removed several tiles from the adjTiles list.

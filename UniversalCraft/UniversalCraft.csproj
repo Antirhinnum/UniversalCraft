@@ -49,9 +49,13 @@
     <Compile Include="Items\UniversalCrafter.cs" />
     <Compile Include="Tiles\UCTile.cs" />
     <Compile Include="Tiles\UniversalCrafter.cs" />
+    <Compile Include="Tiles\UniversalCrafter2.cs" />
     <Compile Include="UniversalCraft.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Tiles\UniversalCrafter2.png" />
+    <Content Include="Tiles\UniversalCrafter2_glowmask.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
