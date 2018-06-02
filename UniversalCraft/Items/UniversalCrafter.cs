@@ -32,7 +32,7 @@ namespace UniversalCraft.Items
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Wood, 10);
             recipe.AddIngredient(ItemID.GrayBrick, 20);
-            recipe.AddRecipeGroup("IronBar", 20);
+            recipe.AddRecipeGroup("IronBar", 10);
             recipe.AddIngredient(ItemID.Torch, 15);
             recipe.AddIngredient(ItemID.LesserHealingPotion, 5);
             recipe.AddIngredient(ItemID.Glass, 20);
