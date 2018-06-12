@@ -49,6 +49,7 @@ namespace UniversalCraft.Tiles
             adjTile.Add(TileID.Hellforge); //Hellforge
             adjTile.Add(TileID.HoneyDispenser); //Honey Dispenser
             adjTile.Add(TileID.IceMachine); //Ice Machine
+            adjTile.Add(TileID.Kegs); //Keg
             adjTile.Add(TileID.LivingLoom); //Living Loom
             adjTile.Add(TileID.Loom); //Loom
             adjTile.Add(TileID.Sawmill); //Sawmill
@@ -196,6 +197,7 @@ namespace UniversalCraft.Tiles
             Vanilla.Add("Hellforge"); //Hellforge
             VanillaDecor.Add("Honey Dispenser"); //Honey Dispenser
             VanillaDecor.Add("Ice Machine"); //Ice Machine
+            Vanilla.Add("Keg"); //Keg
             VanillaDecor.Add("Living Loom"); //Living Loom
             Vanilla.Add("Loom"); //Loom
             Vanilla.Add("Sawmill"); //Sawmill
