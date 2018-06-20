@@ -12,8 +12,6 @@ namespace UniversalCraft.Tiles
 {
     public class UniversalCrafter : ModTile
     {
-        public static List<int> adjTile = new List<int>();
-
         public override void SetDefaults()
         {
             Main.tileSolidTop[Type] = false;
@@ -21,7 +19,7 @@ namespace UniversalCraft.Tiles
             Main.tileNoAttach[Type] = true;
             Main.tileTable[Type] = false;
             Main.tileLavaDeath[Type] = false;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style6x3);
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style5x4);
             TileObjectData.newTile.Height = 3;
             TileObjectData.newTile.Width = 5;
             TileObjectData.newTile.Origin = new Point16(2, 2);
@@ -34,6 +32,8 @@ namespace UniversalCraft.Tiles
             disableSmartCursor = true;
 
             #region AdjTile
+            List<int> adjTile = new List<int>();
+
             adjTile.Add(TileID.Anvils); //Anvil
             adjTile.Add(TileID.Bookcases); //Bookcase
             adjTile.Add(TileID.Bottles); //Bottle
@@ -618,7 +618,7 @@ namespace UniversalCraft.Tiles
             string MediumModsString = string.Join(", ", MediumMods.ToArray());
             string SmallModsString = string.Join(", ", SmallMods.ToArray());
             string AllTilesString = string.Join(", ", AllTiles.ToArray());
-            
+
             if (cycle > 5)
                 cycle = 0;
 
@@ -691,7 +691,7 @@ namespace UniversalCraft.Tiles
                 case 5:
                     Main.NewText("Currently active tiles: " + AllTilesString + ".");
                     Main.NewText("Right-click again to see Vanilla Tiles.");
-                    cycle++;
+                    cycle = 0;
                     break;
                 default:
                     return;

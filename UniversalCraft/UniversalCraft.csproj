@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Items\UniversalCrafter.cs" />
-    <Compile Include="Tiles\UCCarryTile.cs" />
     <Compile Include="Tiles\UCTile.cs" />
     <Compile Include="Tiles\UniversalCrafter.cs" />
     <Compile Include="UCItem.cs" />
