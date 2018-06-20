@@ -1,5 +1,6 @@
 using Terraria.ModLoader;
 using Terraria.ID;
+using System.Linq;
 
 namespace UniversalCraft.Items
 {
@@ -8,7 +9,7 @@ namespace UniversalCraft.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Universal Crafter");
-            Tooltip.SetDefault("'All in one!'\nActs as tons of crafting stations\nMore stations are added as you progress through the game\nRight-click the tile to see what stations you currently have");
+            Tooltip.SetDefault("'All in one!'\nActs as tons of crafting stations\nMore stations are added as you progress through the game\nRight-click the tile to see what stations you currently have\nCan be used as an Extractinator");
         }
 
         public override void SetDefaults()

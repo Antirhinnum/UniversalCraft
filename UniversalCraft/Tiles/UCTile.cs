@@ -33,10 +33,10 @@ namespace UniversalCraft.Tiles
         Mod tremor = ModLoader.GetMod("Tremor"); //Tremor Mod Remastered
         #endregion
 
+        public static List<int> adjTile = new List<int>();
+
         public override int[] AdjTiles(int type)
         {
-            List<int> adjTile = new List<int>();
-
             if (type == mod.TileType("UniversalCrafter"))
             {
                 Main.LocalPlayer.adjWater = true; //Water
@@ -73,6 +73,7 @@ namespace UniversalCraft.Tiles
                 {
                     adjTile.Add(TileID.BoneWelder); //Bone Welder
                     adjTile.Add(TileID.AlchemyTable); //Alchemy Table
+                    Main.LocalPlayer.alchemyTable = true; //Alchemy Table function
                     if (ModLoader.GetLoadedMods().Contains("chadsfurni"))
                     {
                         adjTile.Add(chadsFurni.TileType("printer3")); //3D Printer

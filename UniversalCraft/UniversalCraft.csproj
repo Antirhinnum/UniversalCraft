@@ -47,15 +47,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Items\UniversalCrafter.cs" />
+    <Compile Include="Tiles\UCCarryTile.cs" />
     <Compile Include="Tiles\UCTile.cs" />
     <Compile Include="Tiles\UniversalCrafter.cs" />
-    <Compile Include="Tiles\UniversalCrafter2.cs" />
+    <Compile Include="UCItem.cs" />
     <Compile Include="UniversalCraft.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Tiles\UniversalCrafter2.png" />
-    <Content Include="Tiles\UniversalCrafter2_glowmask.png" />
+    <Content Include="build.txt" />
+    <Content Include="description.txt" />
+    <Content Include="Items\UniversalCrafter.png" />
+    <Content Include="Tiles\UniversalCrafter.png" />
+    <Content Include="Tiles\UniversalCrafter_Glowmask.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

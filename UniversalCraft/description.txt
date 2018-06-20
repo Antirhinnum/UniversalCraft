@@ -16,3 +16,5 @@ v1.4: Completely redid the Crafter. Now, stations are added as you progress. You
 v1.4.1: Right-clicking the tile no longer spams the tilelist into your chat fifty times.
 v1.4.2: Fixed Wing of the World unlocking Post-Skeletron as opposed to Post-EoW/BoC. Added a different system for the right-click, now it automatically adds 'a' and 'an' to tiles and adds 'and' at the end. Removed unecessary bits of code.
 v1.5: Redid the right-click list: Now cycles through tiles every click (Vanilla, Vanilla Decor, Big Mods, Medium Mods, Small Mods). Added glowmask to tile. Changed recipe. Added/Removed several tiles from the adjTiles list.
+v1.5.1: Added the Keg (How did I forget this?), added recipes for crafting Water, Lava, and Honey Buckets (1 Empty Bucket while near their respective fluids).
+v1.5.2: Added a Full Tile List to the right-click cycle, added Extractinator function (meaning you can extract Silt and similar by clicking the tile).

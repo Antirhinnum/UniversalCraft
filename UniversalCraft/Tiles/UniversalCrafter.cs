@@ -5,14 +5,14 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using Terraria.ID;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.ID;
 
 namespace UniversalCraft.Tiles
 {
     public class UniversalCrafter : ModTile
     {
-        int cycle = 0;
+        public static List<int> adjTile = new List<int>();
 
         public override void SetDefaults()
         {
@@ -21,7 +21,7 @@ namespace UniversalCraft.Tiles
             Main.tileNoAttach[Type] = true;
             Main.tileTable[Type] = false;
             Main.tileLavaDeath[Type] = false;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style6x3);
             TileObjectData.newTile.Height = 3;
             TileObjectData.newTile.Width = 5;
             TileObjectData.newTile.Origin = new Point16(2, 2);
@@ -33,9 +33,7 @@ namespace UniversalCraft.Tiles
             dustType = mod.DustType("Sparkle");
             disableSmartCursor = true;
 
-            #region AdjTiles
-            List<int> adjTile = new List<int>();
-
+            #region AdjTile
             adjTile.Add(TileID.Anvils); //Anvil
             adjTile.Add(TileID.Bookcases); //Bookcase
             adjTile.Add(TileID.Bottles); //Bottle
@@ -175,6 +173,8 @@ namespace UniversalCraft.Tiles
             #endregion
         }
 
+        int cycle = 0;
+
         public override void RightClick(int i, int j)
         {
             List<string> Vanilla = new List<string>();
@@ -182,8 +182,10 @@ namespace UniversalCraft.Tiles
             List<string> BigMods = new List<string>();
             List<string> MediumMods = new List<string>();
             List<string> SmallMods = new List<string>();
+            List<string> AllTiles = new List<string>();
 
             #region Tile Names
+            #region Pre-Boss
             Vanilla.Add("Anvil"); //Anvil
             Vanilla.Add("Bookcase"); //Bookcase
             Vanilla.Add("Bottle"); //Bottle
@@ -301,6 +303,7 @@ namespace UniversalCraft.Tiles
             Vanilla.Add("Water"); //Water
             Vanilla.Add("Lava"); //Lava
             Vanilla.Add("Honey"); //Honey
+            #endregion
             if (NPC.downedSlimeKing)
             {
                 VanillaDecor.Add("Soldifier"); //Soldifier
@@ -600,19 +603,23 @@ namespace UniversalCraft.Tiles
             }
             #endregion
 
+            AllTiles = Vanilla.Union(VanillaDecor).Union(BigMods).Union(MediumMods).Union(SmallMods).ToList();
+
             Vanilla.Sort();
             VanillaDecor.Sort();
             BigMods.Sort();
             MediumMods.Sort();
             SmallMods.Sort();
+            AllTiles.Sort();
 
             string VanillaString = string.Join(", ", Vanilla.ToArray());
             string VanillaDecorString = string.Join(", ", VanillaDecor.ToArray());
             string BigModsString = string.Join(", ", BigMods.ToArray());
             string MediumModsString = string.Join(", ", MediumMods.ToArray());
             string SmallModsString = string.Join(", ", SmallMods.ToArray());
-
-            if (cycle > 4)
+            string AllTilesString = string.Join(", ", AllTiles.ToArray());
+            
+            if (cycle > 5)
                 cycle = 0;
 
             switch (cycle)
@@ -641,8 +648,8 @@ namespace UniversalCraft.Tiles
                     }
                     else
                     {
-                        Main.NewText("Right-click again to see Vanilla Tiles.");
-                        cycle = 0;
+                        Main.NewText("Right-click again to see All Tiles.");
+                        cycle += 4;
                     }
                     break;
                 case 2:
@@ -659,8 +666,8 @@ namespace UniversalCraft.Tiles
                     }
                     else
                     {
-                        Main.NewText("Right-click again to see Vanilla Tiles.");
-                        cycle = 0;
+                        Main.NewText("Right-click again to see All Tiles.");
+                        cycle += 3;
                     }
                     break;
                 case 3:
@@ -672,14 +679,19 @@ namespace UniversalCraft.Tiles
                     }
                     else
                     {
-                        Main.NewText("Right-click again to see Vanilla Tiles.");
-                        cycle = 0;
+                        Main.NewText("Right-click again to see All Tiles.");
+                        cycle += 2;
                     }
                     break;
                 case 4:
                     Main.NewText("Currently active Small Mod Tiles: " + SmallModsString + ".");
+                    Main.NewText("Right-click again to see All Tiles.");
+                    cycle++;
+                    break;
+                case 5:
+                    Main.NewText("Currently active tiles: " + AllTilesString + ".");
                     Main.NewText("Right-click again to see Vanilla Tiles.");
-                    cycle = 0;
+                    cycle++;
                     break;
                 default:
                     return;
