@@ -18,6 +18,7 @@ namespace UniversalCraft.Tiles
         Mod cosmeticVariety = ModLoader.GetMod("CosmeticVariety"); //Furniture, Food, and Fun
         Mod exodus = ModLoader.GetMod("Exodus"); //Exodus Mod
         Mod fargowiltas = ModLoader.GetMod("Fargowiltas"); //Fargo's Mutant Mod: Summons and Souls
+        Mod gadgetBox = ModLoader.GetMod("GadgetBox"); //Box of Gadgets
         Mod gRealm = ModLoader.GetMod("GRealm"); //GRealm
         Mod joostMod = ModLoader.GetMod("JoostMod"); //Joostmod
         Mod laugicality = ModLoader.GetMod("Laugicality"); //The Enigma Mod
@@ -26,13 +27,14 @@ namespace UniversalCraft.Tiles
         Mod project__C = ModLoader.GetMod("Project__C"); //ProjectC (EE2 / ProjectE)
         Mod pumpking = ModLoader.GetMod("Pumpking"); //Pumpking's Mod
         Mod sacredTools = ModLoader.GetMod("SacredTools"); //SacredTools
+        Mod serrariaModTwo = ModLoader.GetMod("SerrariaModTwo"); //Serraria Mod 2
         Mod spiritMod = ModLoader.GetMod("SpiritMod"); //Spirit Mod
         Mod theDeconstructor = ModLoader.GetMod("TheDeconstructor"); //The Lunar Deconstructor
         Mod theSpatiumMod = ModLoader.GetMod("thespatiummod"); //Item Binders
         Mod thoriumMod = ModLoader.GetMod("ThoriumMod"); //Thorium Mod
         Mod tremor = ModLoader.GetMod("Tremor"); //Tremor Mod Remastered
         #endregion
-        
+
         public override int[] AdjTiles(int type)
         {
             List<int> adjTile = new List<int>();
@@ -57,6 +59,11 @@ namespace UniversalCraft.Tiles
                 if (NPC.downedGoblins)
                 {
                     adjTile.Add(TileID.TinkerersWorkbench); //Tinkerer's Workshop
+                    if (ModLoader.GetLoadedMods().Contains("SerrariaModTwo"))
+                    {
+                        adjTile.Add(serrariaModTwo.TileType("UncraftingTable")); //Uncrafting Table
+                        adjTile.Add(serrariaModTwo.TileType("UnUnCraftingTable")); //Un-Uncrafting Table
+                    }
                 }
                 if (NPC.downedBoss2)
                 {
@@ -185,6 +192,10 @@ namespace UniversalCraft.Tiles
                     if (ModLoader.GetLoadedMods().Contains("Tremor"))
                     {
                         adjTile.Add(tremor.TileType("AlchematorTile")); //Alchemator
+                    }
+                    if (ModLoader.GetLoadedMods().Contains("GadgetBox"))
+                    {
+                        adjTile.Add(gadgetBox.TileType("LihzahrdWorkshopTile")); //Lihzahrd Workshop
                     }
                 }
                 if (NPC.downedHalloweenTree)
