@@ -1,5 +1,5 @@
 author = Creeper Da Snek
-version = 1.5.3
+version = 1.5.3.1
 displayName = Universal Crafter
 hideCode = false
 hideResources = false

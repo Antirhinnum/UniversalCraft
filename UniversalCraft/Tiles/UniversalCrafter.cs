@@ -178,7 +178,7 @@ namespace UniversalCraft.Tiles
         public override void RightClick(int i, int j)
         {
             #region Right-Click Tile Lists
-            //if (Main.tile[i, j].frameX == 36 && Main.tile[i, j].frameY == 0)
+            //if (Main.tile[i, j].frameX == 36 && Main.tile[i, j].frameY == 0) //Blue Orb
             //{
                 List<string> Vanilla = new List<string>();
                 List<string> VanillaDecor = new List<string>();
@@ -709,9 +709,6 @@ namespace UniversalCraft.Tiles
                         return;
                 }
             //}
-            #endregion
-            #region Test
-
             #endregion
         }
 

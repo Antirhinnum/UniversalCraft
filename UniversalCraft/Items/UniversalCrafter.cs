@@ -1,4 +1,4 @@
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.Localization;
 
@@ -10,7 +10,7 @@ namespace UniversalCraft.Items
         {
             DisplayName.SetDefault("Universal Crafter");
             Tooltip.SetDefault("'All in one!'\nActs as tons of crafting stations\nMore stations are added as you progress through the game\nRight-click the tile to see what stations you currently have\nCan be used as an Extractinator");
-            
+
             DisplayName.AddTranslation(GameCulture.Chinese, "宇宙工坊");
             Tooltip.AddTranslation(GameCulture.Chinese, "'融为一体!'\n蕴含大量制作环境\n随着游戏发展,会增加更多制作环境\n右键工坊可查看目前拥有的制作环境\n可用作提炼机");
         }

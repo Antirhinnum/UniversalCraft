@@ -59,6 +59,7 @@
     <Content Include="Items\UniversalCrafter.png" />
     <Content Include="Tiles\UniversalCrafter.png" />
     <Content Include="Tiles\UniversalCrafter_Glowmask.png" />
+    <Content Include="UniversalCraft.sln" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

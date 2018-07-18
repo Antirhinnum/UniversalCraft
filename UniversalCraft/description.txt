@@ -8,3 +8,4 @@ v1.5.1: Added the Keg (How did I forget this?), added recipes for crafting Water
 v1.5.2: Added a Full Tile List to the right-click cycle, added Extractinator function (meaning you can extract Silt and similar by clicking the tile).
 v1.5.2.1: Patch because  l  a  g
 v1.5.3: Added crafting stations from Box of Gadgets and Serraria Mod 2. Added support for adding more right-click features other than the tile list; Any suggestions would be greatly appreciated!
+v1.5.3.1: Added partial Chinese translation.
