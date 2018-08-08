@@ -3,14 +3,10 @@ using Terraria.ModLoader;
 
 namespace UniversalCraft
 {
-    public class UniversalCrafter : Mod
+    public class UniversalCraft : Mod
     {
-        public UniversalCrafter()
+        public UniversalCraft()
         {
-            Properties = new ModProperties()
-            {
-                Autoload = true,
-            };
         }
 
         public override void AddRecipes()

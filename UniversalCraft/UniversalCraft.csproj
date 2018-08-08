@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Items\UniversalCrafter.cs" />
-    <Compile Include="Tiles\UCTile.cs" />
     <Compile Include="Tiles\UniversalCrafter.cs" />
     <Compile Include="UCItem.cs" />
     <Compile Include="UniversalCraft.cs" />
@@ -62,4 +61,8 @@
     <Content Include="UniversalCraft.sln" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>"C:\Program Files (x86)\Steam\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)"
+-eac "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

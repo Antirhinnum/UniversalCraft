@@ -7,11 +7,16 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ID;
+using Terraria.Map;
+using System;
+using System.Text.RegularExpressions;
 
 namespace UniversalCraft.Tiles
 {
     public class UniversalCrafter : ModTile
     {
+        public static List<int> adjTile = new List<int>();
+
         public override void SetDefaults()
         {
             Main.tileSolidTop[Type] = false;
@@ -32,379 +37,608 @@ namespace UniversalCraft.Tiles
             disableSmartCursor = true;
 
             #region AdjTile
-            List<int> adjTile = new List<int>();
+            adjTile.Add(TileID.Anvils);
+            adjTile.Add(TileID.Bookcases);
+            adjTile.Add(TileID.Bottles);
+            adjTile.Add(TileID.Chairs);
+            adjTile.Add(TileID.CookingPots);
+            adjTile.Add(TileID.DemonAltar);
+            adjTile.Add(TileID.DyeVat);
+            adjTile.Add(TileID.Furnaces);
+            adjTile.Add(TileID.GlassKiln);
+            adjTile.Add(TileID.HeavyWorkBench);
+            adjTile.Add(TileID.Hellforge);
+            adjTile.Add(TileID.HoneyDispenser);
+            adjTile.Add(TileID.IceMachine);
+            adjTile.Add(TileID.Kegs);
+            adjTile.Add(TileID.LivingLoom);
+            adjTile.Add(TileID.Loom);
+            adjTile.Add(TileID.Sawmill);
+            adjTile.Add(TileID.SkyMill);
+            adjTile.Add(TileID.Tables);
+            adjTile.Add(TileID.Tables2);
+            adjTile.Add(TileID.WorkBenches);
 
-            adjTile.Add(TileID.Anvils); //Anvil
-            adjTile.Add(TileID.Bookcases); //Bookcase
-            adjTile.Add(TileID.Bottles); //Bottle
-            adjTile.Add(TileID.Chairs); //Chair
-            adjTile.Add(TileID.CookingPots); //Cooking Pot
-            adjTile.Add(TileID.DemonAltar); //Demon Altar
-            adjTile.Add(TileID.DyeVat); //Dye Vat
-            adjTile.Add(TileID.Furnaces); //Furnace
-            adjTile.Add(TileID.GlassKiln); //Glass Kiln
-            adjTile.Add(TileID.HeavyWorkBench); //Heavy Work Bench
-            adjTile.Add(TileID.Hellforge); //Hellforge
-            adjTile.Add(TileID.HoneyDispenser); //Honey Dispenser
-            adjTile.Add(TileID.IceMachine); //Ice Machine
-            adjTile.Add(TileID.Kegs); //Keg
-            adjTile.Add(TileID.LivingLoom); //Living Loom
-            adjTile.Add(TileID.Loom); //Loom
-            adjTile.Add(TileID.Sawmill); //Sawmill
-            adjTile.Add(TileID.SkyMill); //Sky Mill
-            adjTile.Add(TileID.Tables); //Tables
-            adjTile.Add(TileID.Tables2); //Tables
-            adjTile.Add(TileID.WorkBenches); //Workbench
-            if (ModLoader.GetLoadedMods().Contains("Bismuth")) //Bismuth Mod
+            #region Modded Pre-Boss
+            if (ModLoader.GetLoadedMods().Contains("Bismuth"))
+                adjTile.Add(ModLoader.GetMod("Bismuth").TileType("PapuansBookcase"));
+            if (ModLoader.GetLoadedMods().Contains("CheezeMod"))
+                adjTile.Add(ModLoader.GetMod("CheezeMod").TileType("MegaCorpVendor"));
+            if (ModLoader.GetLoadedMods().Contains("CookieModBeta"))
+                adjTile.Add(ModLoader.GetMod("CookieModBeta").TileType("CookieBench"));
+            if (ModLoader.GetLoadedMods().Contains("CookieModBeta2"))
+                adjTile.Add(ModLoader.GetMod("CookieModBeta2").TileType("CookieBench"));
+            if (ModLoader.GetLoadedMods().Contains("CosmeticVariety"))
             {
-                Mod bismuth = ModLoader.GetMod("Bismuth");
-                adjTile.Add(bismuth.TileType("PapuansBookcase")); //Papuan's Bookcase
+                adjTile.Add(ModLoader.GetMod("CosmeticVariety").TileType("Apiary"));
+                adjTile.Add(ModLoader.GetMod("CosmeticVariety").TileType("CanningStation"));
+                adjTile.Add(ModLoader.GetMod("CosmeticVariety").TileType("ChillMachine"));
+                adjTile.Add(ModLoader.GetMod("CosmeticVariety").TileType("Easel"));
+                adjTile.Add(ModLoader.GetMod("CosmeticVariety").TileType("Oven"));
+                adjTile.Add(ModLoader.GetMod("CosmeticVariety").TileType("SculptingStation"));
             }
-            if (ModLoader.GetLoadedMods().Contains("CheezeMod")) //Cheeze's Content Pack
+            if (ModLoader.GetLoadedMods().Contains("Crystilium"))
             {
-                Mod cheezeMod = ModLoader.GetMod("CheezeMod");
-                adjTile.Add(cheezeMod.TileType("MegaCorpVendor")); //MegaCorp Vendor
+                adjTile.Add(ModLoader.GetMod("Crystilium").TileType("CrystalWoodWorkbench"));
+                adjTile.Add(ModLoader.GetMod("Crystilium").TileType("Fountain"));
             }
-            if (ModLoader.GetLoadedMods().Contains("CookieModBeta")) //Cookie Mod Beta
+            if (ModLoader.GetLoadedMods().Contains("Exodus"))
             {
-                Mod cookieModBeta = ModLoader.GetMod("CookieModBeta");
-                adjTile.Add(cookieModBeta.TileType("CookieBench")); //Cookie Bench Item
+                adjTile.Add(ModLoader.GetMod("Exodus").TileType("BlastFurnaceTile"));
+                adjTile.Add(ModLoader.GetMod("Exodus").TileType("SlimeWorkstation"));
             }
-            if (ModLoader.GetLoadedMods().Contains("CookieModBeta2")) //Cookie Mod Beta
+            if (ModLoader.GetLoadedMods().Contains("FlareStone"))
+                adjTile.Add(ModLoader.GetMod("FlareStone").TileType("Accelerator"));
+            if (ModLoader.GetLoadedMods().Contains("Laugicality"))
             {
-                Mod cookieModBeta = ModLoader.GetMod("CookieModBeta2");
-                adjTile.Add(cookieModBeta.TileType("CookieBench")); //Cookie Bench Item
+                adjTile.Add(ModLoader.GetMod("Laugicality").TileType("AlchemicalInfuser"));
+                adjTile.Add(ModLoader.GetMod("Laugicality").TileType("LaugicalWorkbench"));
+                adjTile.Add(TileID.OpenDoor);
+                adjTile.Add(TileID.ClosedDoor);
             }
-            if (ModLoader.GetLoadedMods().Contains("CosmeticVariety")) //Furniture, Food, and Fun
+            if (ModLoader.GetLoadedMods().Contains("MagicStorage"))
+                adjTile.Add(ModLoader.GetMod("MagicStorage").TileType("CraftingAccess"));
+            if (ModLoader.GetLoadedMods().Contains("MoAddon"))
+                adjTile.Add(ModLoader.GetMod("MoAddon").TileType("SnowWBTile"));
+            if (ModLoader.GetLoadedMods().Contains("OreConversion"))
+                adjTile.Add(ModLoader.GetMod("OreConversion").TileType("OreConvertTable"));
+            if (ModLoader.GetLoadedMods().Contains("RawExpansion"))
             {
-                Mod cosmeticVariety = ModLoader.GetMod("CosmeticVariety");
-                adjTile.Add(cosmeticVariety.TileType("Apiary")); //Apiary
-                adjTile.Add(cosmeticVariety.TileType("CanningStation")); //Canning Station
-                adjTile.Add(cosmeticVariety.TileType("ChillMachine")); //Chill Machine
-                adjTile.Add(cosmeticVariety.TileType("Easel")); //Easel 
-                adjTile.Add(cosmeticVariety.TileType("Oven")); //Oven
-                adjTile.Add(cosmeticVariety.TileType("SculptingStation")); //Sculpting Station
+                adjTile.Add(ModLoader.GetMod("RawExpansion").TileType("FleshCrafter"));
+                adjTile.Add(ModLoader.GetMod("RawExpansion").TileType("UpgraderStation"));
             }
-            if (ModLoader.GetLoadedMods().Contains("Crystilium")) //Crystilium
+            if (ModLoader.GetLoadedMods().Contains("SpiritMod"))
+                adjTile.Add(ModLoader.GetMod("SpiritMod").TileType("CreationAltarTile"));
+            if (ModLoader.GetLoadedMods().Contains("StarWarsMod"))
+                adjTile.Add(ModLoader.GetMod("StarWarsMod").TileType("GeologicalCompressor"));
+            if (ModLoader.GetLoadedMods().Contains("thespatiummod"))
+                adjTile.Add(ModLoader.GetMod("thespatiummod").TileType("GoldenBinder"));
+            if (ModLoader.GetLoadedMods().Contains("ThoriumMod"))
+                adjTile.Add(ModLoader.GetMod("ThoriumMod").TileType("ThoriumAnvil"));
+            if (ModLoader.GetLoadedMods().Contains("Tremor"))
             {
-                Mod crystilium = ModLoader.GetMod("Crystilium");
-                adjTile.Add(crystilium.TileType("CrystalWoodWorkbench")); //Crystal Wood Workbench
-                adjTile.Add(crystilium.TileType("Fountain")); //Crystal Fountain
+                adjTile.Add(ModLoader.GetMod("Tremor").TileType("AltarofEnchantmentsTile"));
+                adjTile.Add(ModLoader.GetMod("Tremor").TileType("BlastFurnace"));
+                adjTile.Add(ModLoader.GetMod("Tremor").TileType("FleshWorkstationTile"));
+                adjTile.Add(ModLoader.GetMod("Tremor").TileType("MagicWorkbenchTile"));
+                adjTile.Add(ModLoader.GetMod("Tremor").TileType("MineralTransmutator"));
             }
-            if (ModLoader.GetLoadedMods().Contains("Exodus")) //Exodus Mod
+            if (ModLoader.GetLoadedMods().Contains("VampKnives"))
+                adjTile.Add(ModLoader.GetMod("VampKnives").TileType("KnifeBench"));
+            if (ModLoader.GetLoadedMods().Contains("Exodus") || ModLoader.GetLoadedMods().Contains("GRealm") || ModLoader.GetLoadedMods().Contains("RawExpasion") || ModLoader.GetLoadedMods().Contains("CrittersRevamped") || ModLoader.GetLoadedMods().Contains("CloudRecipe") || ModLoader.GetLoadedMods().Contains("EvilBlockSwap") || ModLoader.GetLoadedMods().Contains("ExperienceAndClasses") || ModLoader.GetLoadedMods().Contains("ExperienceAndClassesRu") || ModLoader.GetLoadedMods().Contains("Hunger"))
+                adjTile.Add(TileID.Campfire);
+            if (ModLoader.GetLoadedMods().Contains("AE"))
+                adjTile.Add(TileID.Extractinator);
+            if (ModLoader.GetLoadedMods().Contains("AnomiconMod"))
+                adjTile.Add(ModLoader.GetMod("AnomiconMod").TileType("DPrinter"));
+            if (ModLoader.GetLoadedMods().Contains("AFKPETS"))
+                adjTile.Add(TileID.Beds);
+            if (ModLoader.GetLoadedMods().Contains("Aloha"))
             {
-                Mod exodus = ModLoader.GetMod("Exodus");
-                adjTile.Add(exodus.TileType("BlastFurnaceTile")); //Alloy Forge
-                adjTile.Add(exodus.TileType("SlimeWorkstation")); //Slime Workstation
+                adjTile.Add(TileID.Larva);
+                adjTile.Add(TileID.Cactus);
             }
-            if (ModLoader.GetLoadedMods().Contains("FlareStone")) //FlareStone
+            if (ModLoader.GetLoadedMods().Contains("AGSmod"))
+                adjTile.Add(TileID.Pigronata);
+            if (ModLoader.GetLoadedMods().Contains("JoostMod"))
+                adjTile.Add(ModLoader.GetMod("JoostMod").TileType("ShrineOfLegends"));
+            if (ModLoader.GetLoadedMods().Contains("BetterBoneWelder"))
+                adjTile.Add(ModLoader.GetMod("BetterBoneWelder").TileType("DaemonForge"));
+            if (ModLoader.GetLoadedMods().Contains("BeastPack"))
             {
-                Mod flareStone = ModLoader.GetMod("FlareStone");
-                adjTile.Add(flareStone.TileType("Accelerator")); //Accelerator
+                adjTile.Add(ModLoader.GetMod("BeastPack").TileType("AdvancedWorkStation"));
+                adjTile.Add(ModLoader.GetMod("BeastPack").TileType("WorkStation"));
+                adjTile.Add(ModLoader.GetMod("BeastPack").TileType("SkyForge"));
             }
-            if (ModLoader.GetLoadedMods().Contains("Laugicality")) //The Enigma Mod
+            if (ModLoader.GetLoadedMods().Contains("BuildPlanner"))
+                adjTile.Add(ModLoader.GetMod("BuildPlanner").TileType("Scaffold"));
+            if (ModLoader.GetLoadedMods().Contains("bloodScythes"))
+                adjTile.Add(TileID.Bowls);
+            if (ModLoader.GetLoadedMods().Contains("BuilderPlus"))
+                adjTile.Add(TileID.WaterDrip);
+            if (ModLoader.GetLoadedMods().Contains("DylansMod"))
+                adjTile.Add(ModLoader.GetMod("DylansMod").TileType("EnchantmentTable"));
+            if (ModLoader.GetLoadedMods().Contains("DestinyItemsMod"))
+                adjTile.Add(ModLoader.GetMod("DestinyItemsMod").TileType("GuardiansForge"));
+            if (ModLoader.GetLoadedMods().Contains("DirtMod"))
+                adjTile.Add(ModLoader.GetMod("DirtMod").TileType("DirtFurnace"));
+            if (ModLoader.GetLoadedMods().Contains("TerrariaDark"))
+                adjTile.Add(ModLoader.GetMod("TerrariaDark").TileType("DarkAltar"));
+            if (ModLoader.GetLoadedMods().Contains("DoggysMod"))
+                adjTile.Add(ModLoader.GetMod("DoggysMod").TileType("SuspiciousGlass"));
+            if (ModLoader.GetLoadedMods().Contains("DankBuysMod"))
             {
-                Mod laugicality = ModLoader.GetMod("Laugicality");
-                adjTile.Add(laugicality.TileType("AlchemicalInfuser")); //Alchemical Infuser
-                adjTile.Add(TileID.ClosedDoor); //Door
-                adjTile.Add(laugicality.TileType("LaugicalWorkbench")); //Laugical Workbench
-                adjTile.Add(TileID.OpenDoor); //Door
+                adjTile.Add(TileID.MonarchButterflyJar);
+                adjTile.Add(TileID.FossilOre);
             }
-            if (ModLoader.GetLoadedMods().Contains("MagicStorage")) //Magic Storage
+            if (ModLoader.GetLoadedMods().Contains("Dalekanium") || ModLoader.GetLoadedMods().Contains("HellstoneShotmod"))
+                adjTile.Add(TileID.Sinks);
+            if (ModLoader.GetLoadedMods().Contains("ExtendedCrops"))
             {
-                Mod magicStorage = ModLoader.GetMod("MagicStorage");
-                adjTile.Add(magicStorage.TileType("CraftingAccess")); //Storage Crafting Interface
+                adjTile.Add(TileID.PiggyBank);
+                Mod extendedCrops = ModLoader.GetMod("ExtendedCrops");
+                adjTile.Add(extendedCrops.TileType("SeedProcessor"));
+                adjTile.Add(extendedCrops.TileType("ACopperSeedProcessor"));
+                adjTile.Add(extendedCrops.TileType("ATinSeedProcessor"));
+                adjTile.Add(extendedCrops.TileType("BIronSeedProcessor"));
+                adjTile.Add(extendedCrops.TileType("BLeadSeedProcessor"));
+                adjTile.Add(extendedCrops.TileType("CSilverSeedProcessor"));
+                adjTile.Add(extendedCrops.TileType("CTungstenSeedProcessor"));
+                adjTile.Add(extendedCrops.TileType("DGoldSeedProcessor"));
+                adjTile.Add(extendedCrops.TileType("DPlatinumSeedProcessor"));
+                adjTile.Add(extendedCrops.TileType("EMeteoriteSeedProcessor"));
+                adjTile.Add(extendedCrops.TileType("FDemoniteSeedProcessor"));
+                adjTile.Add(extendedCrops.TileType("FCrimtaneSeedProcessor"));
+                adjTile.Add(extendedCrops.TileType("GObsidianSeedProcessor"));
+                adjTile.Add(extendedCrops.TileType("HHellstoneSeedProcessor"));
             }
-            if (ModLoader.GetLoadedMods().Contains("MoAddon")) //Mohammed's Addon
+            if (ModLoader.GetLoadedMods().Contains("Eclipysian") || ModLoader.GetLoadedMods().Contains("ExampleMod") || ModLoader.GetLoadedMods().Contains("Test__Test"))
+                adjTile.Add(TileID.FireflyinaBottle);
+            if (ModLoader.GetLoadedMods().Contains("EasyFishing") || ModLoader.GetLoadedMods().Contains("FrecMod"))
+                adjTile.Add(TileID.Sunflower);
+            if (ModLoader.GetLoadedMods().Contains("FabusMod"))
+                adjTile.Add(TileID.Books);
+            if (ModLoader.GetLoadedMods().Contains("FantasiesAdvance"))
             {
-                Mod moAddon = ModLoader.GetMod("MoAddon");
-                adjTile.Add(moAddon.TileType("SnowWBTile")); //Snow Workbench
+                adjTile.Add(ModLoader.GetMod("FantasiesAdvance").TileType("DwarvenForge"));
+                adjTile.Add(ModLoader.GetMod("FantasiesAdvance").TileType("DwarvenAnvil"));
             }
-            if (ModLoader.GetLoadedMods().Contains("OreConversion")) //OreConversion
+            if (ModLoader.GetLoadedMods().Contains("Fernium"))
+                adjTile.Add(ModLoader.GetMod("Fernium").TileType("LivingWorkbench"));
+            if (ModLoader.GetLoadedMods().Contains("Gemology"))
+                adjTile.Add(ModLoader.GetMod("Gemology").TileType("gemRefineryPlaced"));
+            if (ModLoader.GetLoadedMods().Contains("HappyDaysMod"))
             {
-                Mod oreConversion = ModLoader.GetMod("OreConversion");
-                adjTile.Add(oreConversion.TileType("OreConvertTable")); //Ore Conversion Table
+                adjTile.Add(ModLoader.GetMod("HappyDaysMod").TileType("WeaponStation"));
+                adjTile.Add(ModLoader.GetMod("HappyDaysMod").TileType("WoodenExtractor"));
+                adjTile.Add(ModLoader.GetMod("HappyDaysMod").TileType("ChemistryTable"));
+                adjTile.Add(ModLoader.GetMod("HappyDaysMod").TileType("CreatorsTable"));
+                adjTile.Add(ModLoader.GetMod("HappyDaysMod").TileType("BoozeKit"));
+                adjTile.Add(ModLoader.GetMod("HappyDaysMod").TileType("Apothecary"));
             }
-            if (ModLoader.GetLoadedMods().Contains("RawExpansion")) //Raw Expansion
+            if (ModLoader.GetLoadedMods().Contains("Illaz"))
+                adjTile.Add(ModLoader.GetMod("Illaz").TileType("IllazWorkbench"));
+            if (ModLoader.GetLoadedMods().Contains("Inkursion"))
+                adjTile.Add(ModLoader.GetMod("Inkursion").TileType("InkyWorkbench"));
+            if (ModLoader.GetLoadedMods().Contains("HellstoneShotmod"))
             {
-                Mod rawExpansion = ModLoader.GetMod("RawExpansion");
-                adjTile.Add(rawExpansion.TileType("FleshCrafter")); //Flesh Shaper
-                adjTile.Add(rawExpansion.TileType("UpgraderStation")); //Upgrade Station
+                adjTile.Add(TileID.Tombstones);
+                adjTile.Add(TileID.Cobweb);
             }
-            if (ModLoader.GetLoadedMods().Contains("SpiritMod")) //Spirit Mod
-            {
-                Mod spiritMod = ModLoader.GetMod("SpiritMod");
-                adjTile.Add(spiritMod.TileType("CreationAltarTile")); //Altar of Creation
-            }
-            if (ModLoader.GetLoadedMods().Contains("StarWarsMod")) //Star Wars Mod
-            {
-                Mod starWarsMod = ModLoader.GetMod("StarWarsMod");
-                adjTile.Add(starWarsMod.TileType("GeologicalCompressor")); //Geological Compressor
-            }
-            if (ModLoader.GetLoadedMods().Contains("thespatiummod")) //Item Binders
-            {
-                Mod theSpatiumMod = ModLoader.GetMod("thespatiummod");
-                adjTile.Add(theSpatiumMod.TileType("GoldenBinder")); //Golden Binder
-            }
-            if (ModLoader.GetLoadedMods().Contains("ThoriumMod")) //Thorium Mod
-            {
-                Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-                adjTile.Add(thoriumMod.TileType("ThoriumAnvil")); //Thorium Anvil
-            }
-            if (ModLoader.GetLoadedMods().Contains("Tremor")) //Tremor Mod Remastered
-            {
-                Mod tremor = ModLoader.GetMod("Tremor");
-                adjTile.Add(tremor.TileType("AltarofEnchantmentsTile")); //Altar of Enchantments
-                adjTile.Add(tremor.TileType("BlastFurnace")); //Blast Furnace
-                adjTile.Add(tremor.TileType("FleshWorkstationTile")); //Flesh Workstation
-                adjTile.Add(tremor.TileType("MagicWorkbenchTile")); //Magic Workbench
-                adjTile.Add(tremor.TileType("MineralTransmutator")); //Mineral Transmutator
-            }
-            if (ModLoader.GetLoadedMods().Contains("VampKnives")) //Vampire Knives Expanded
-            {
-                Mod vampKnives = ModLoader.GetMod("VampKnives");
-                adjTile.Add(vampKnives.TileType("KnifeBench")); //Knife Worktable
-            }
-            if (ModLoader.GetLoadedMods().Contains("Exodus") || ModLoader.GetLoadedMods().Contains("GRealm") || ModLoader.GetLoadedMods().Contains("RawExpasion"))
-            {
-                adjTile.Add(TileID.Campfire); //Campfire
-            }
+            if (ModLoader.GetLoadedMods().Contains("Insanity"))
+                adjTile.Add(TileID.Candles);
+            if (ModLoader.GetLoadedMods().Contains("CyversMod"))
+                adjTile.Add(TileID.Trees);
+            #endregion
             adjTiles = adjTile.ToArray();
             #endregion
         }
 
-        int cycle = 0;
+        public static List<string> TileList = new List<string>(); //Empty list for tile names
+        public static List<int> ToConvert = new List<int>(); //Temp. list for all adjTile ints
+        public static int[] UCTAdj = new int[256]; //Temp. int[] for UCTile.AdjTiles
+
+        int count = 0;
+
+        public static List<string> VanillaStrings = new List<string>(); //List for vanilla tiles
+        public static List<string> SymbEModStrings = new List<string>(); //List for mods whose names starts with letters a-e + number and symbols
+        public static List<string> FLModStrings = new List<string>(); // f-l
+        public static List<string> MSModStrings = new List<string>(); // m-s
+        public static List<string> TZModStrings = new List<string>(); // t-z
+        public static List<string> Unknown = new List<string>(); //else
+        public static List<string> AllTiles = new List<string>();
 
         public override void RightClick(int i, int j)
         {
-            #region Right-Click Tile Lists
-            //if (Main.tile[i, j].frameX == 36 && Main.tile[i, j].frameY == 0) //Blue Orb
+            #region New Right-Click List
+            //if (Main.tile[i, j].frameX == 36 && Main.tile[i, j].frameY == 0) //Blue orb on top of tile
             //{
-                List<string> Vanilla = new List<string>();
-                List<string> VanillaDecor = new List<string>();
-                List<string> BigMods = new List<string>();
-                List<string> MediumMods = new List<string>();
-                List<string> SmallMods = new List<string>();
-                List<string> AllTiles = new List<string>();
+            UCTAdj = mod.GetGlobalTile("UCTile").AdjTiles(mod.TileType("UniversalCrafter")); //Get AdjTiles from UCTile
+            ToConvert = adjTile.Union(UCTAdj).ToList(); //Turns the two arrays into a list
+            VanillaStrings.Clear(); SymbEModStrings.Clear(); FLModStrings.Clear(); MSModStrings.Clear(); TZModStrings.Clear(); Unknown.Clear(); AllTiles.Clear();
+            foreach (int tile in ToConvert) //For every integer in ToConvert...
+            {
+                Mod modName = null; //Set modName to null
+                string modNameS = ""; //Set modNameString to null
+                string tileName = Lang.GetMapObjectName(MapHelper.TileToLookup(tile, 0)); //Set tileName to look up each tile's name
+                char firstL;
+                if (tileName == "")
+                {
+                    if (tile < TileID.Count)
+                        tileName = "Tile " + tile; //Invalid name
+                    else
+                        tileName = TileLoader.GetTile(tile).Name; //Valid name
+                }
+                if (TileLoader.GetTile(tile) != null) //If the tile is a modded tile...
+                {
+                    modName = TileLoader.GetTile(tile).mod;
+                }
+                if (modName != null)
+                {
+                    modNameS = String.Format(" [c/ffaf00:({0})]", modName.DisplayName.ToString());
+                }
+                string TileName2 = tileName + modNameS; //Add name to List. For Vanilla tiles, it will only display the name, as modNameS will be equal to null
+                if (modName != null)
+                {
+                    firstL = modName.DisplayName.ToString()[0];
+                    bool SymbE = Regex.IsMatch(firstL.ToString(), "[a-e]", RegexOptions.IgnoreCase);
+                    bool FL = Regex.IsMatch(firstL.ToString(), "[f-l]", RegexOptions.IgnoreCase);
+                    bool MS = Regex.IsMatch(firstL.ToString(), "[m-s]", RegexOptions.IgnoreCase);
+                    bool TZ = Regex.IsMatch(firstL.ToString(), "[t-z]", RegexOptions.IgnoreCase);
 
-                #region Tile Names
-                #region Pre-Boss
-                Vanilla.Add("Anvil"); //Anvil
-                Vanilla.Add("Bookcase"); //Bookcase
-                Vanilla.Add("Bottle"); //Bottle
-                Vanilla.Add("Chair"); //Chair
-                Vanilla.Add("Cooking Pot"); //Cooking Pot
-                Vanilla.Add("Demon Altar"); //Demon Altar
-                Vanilla.Add("Dye Vat"); //Dye Vat
-                Vanilla.Add("Furnace"); //Furnace
-                VanillaDecor.Add("Glass Kiln"); //Glass Kiln
-                VanillaDecor.Add("Heavy Work Bench"); //Heavy Work Bench
-                Vanilla.Add("Hellforge"); //Hellforge
-                VanillaDecor.Add("Honey Dispenser"); //Honey Dispenser
-                VanillaDecor.Add("Ice Machine"); //Ice Machine
-                Vanilla.Add("Keg"); //Keg
-                VanillaDecor.Add("Living Loom"); //Living Loom
-                Vanilla.Add("Loom"); //Loom
-                Vanilla.Add("Sawmill"); //Sawmill
-                VanillaDecor.Add("Sky Mill"); //Sky Mill
-                Vanilla.Add("Table"); //Tables
-                Vanilla.Add("Workbench"); //Workbench
-                if (ModLoader.GetLoadedMods().Contains("Bismuth")) //Bismuth Mod
-                {
-                    MediumMods.Add("Papuan's Bookcase"); //Papuan's Bookcase
+                    if (SymbE || Char.IsSymbol(firstL) || Char.IsNumber(firstL))
+                        SymbEModStrings.Add(TileName2);
+                    else if (FL)
+                        FLModStrings.Add(TileName2);
+                    else if (MS)
+                        MSModStrings.Add(TileName2);
+                    else if (TZ)
+                        TZModStrings.Add(TileName2);
+                    else
+                        Unknown.Add(TileName2);
                 }
-                if (ModLoader.GetLoadedMods().Contains("CheezeMod")) //Cheeze's Content Pack
-                {
-                    MediumMods.Add("MegaCorp Vendor"); //MegaCorp Vendor
-                }
-                if (ModLoader.GetLoadedMods().Contains("CookieModBeta")) //Cookie Mod Beta
-                {
-                    SmallMods.Add("Cookie Bench"); //Cookie Bench Item
-                }
-                if (ModLoader.GetLoadedMods().Contains("CookieModBeta2")) //Cookie Mod Beta
-                {
-                    SmallMods.Add("Cookie Bench"); //Cookie Bench Item
-                }
-                if (ModLoader.GetLoadedMods().Contains("CosmeticVariety")) //Furniture, Food, and Fun
-                {
-                    BigMods.Add("Apiary"); //Apiary
-                    BigMods.Add("Canning Station"); //Canning Station
-                    BigMods.Add("Chill Machine"); //Chill Machine
-                    BigMods.Add("Easel"); //Easel
-                    BigMods.Add("Oven"); //Oven
-                    BigMods.Add("Scuplting Station"); //Sculpting Station
-                }
-                if (ModLoader.GetLoadedMods().Contains("Crystilium")) //Crystilium
-                {
-                    MediumMods.Add("Crystal Wood Workbench"); //Crystal Wood Workbench
-                    MediumMods.Add("Crystal Fountain"); //Crystal Fountain
-                }
-                if (ModLoader.GetLoadedMods().Contains("Exodus")) //Exodus Mod
-                {
-                    MediumMods.Add("Alloy Forge"); //Alloy Forge
-                    MediumMods.Add("Slime Workstation"); //Slime Workstation
-                }
-                if (ModLoader.GetLoadedMods().Contains("FlareStone")) //FlareStone
-                {
-                    SmallMods.Add("Accelerator"); //Accelerator
-                }
-                if (ModLoader.GetLoadedMods().Contains("Laugicality")) //The Enigma Mod
-                {
-                    BigMods.Add("Alchemical Infuser"); //Alchemical Infuser
-                    Vanilla.Add("Door"); //Door
-                    BigMods.Add("Laugical Workbench"); //Laugical Workbench
-                }
-                if (ModLoader.GetLoadedMods().Contains("MagicStorage")) //Magic Storage
-                {
-                    MediumMods.Add("Storage Crafting Interface"); //Storage Crafting Interface
-                }
-                if (ModLoader.GetLoadedMods().Contains("MoAddon")) //Mohammed's Addon
-                {
-                    SmallMods.Add("Snow Workbench"); //Snow Workbench
-                }
-                if (ModLoader.GetLoadedMods().Contains("OreConversion")) //OreConversion
-                {
-                    SmallMods.Add("Ore Conversion Table"); //Ore Conversion Table
-                }
-                if (ModLoader.GetLoadedMods().Contains("RawExpansion")) //Raw Expansion
-                {
-                    SmallMods.Add("Flesh Shaper"); //Flesh Shaper
-                    SmallMods.Add("Upgrade Station"); //Upgrade Station
-                }
-                if (ModLoader.GetLoadedMods().Contains("SpiritMod")) //Spirit Mod
-                {
-                    BigMods.Add("Altar of Creation"); //Altar of Creation
-                }
-                if (ModLoader.GetLoadedMods().Contains("StarWarsMod")) //Star Wars Mod
-                {
-                    SmallMods.Add("Geological Compressor"); //Geological Compressor
-                }
-                if (ModLoader.GetLoadedMods().Contains("thespatiummod")) //Item Binders
-                {
-                    SmallMods.Add("Golden Binder"); //Golden Binder
-                }
-                if (ModLoader.GetLoadedMods().Contains("ThoriumMod")) //Thorium Mod
-                {
-                    BigMods.Add("Thorium Anvil"); //Thorium Anvil
-                }
-                if (ModLoader.GetLoadedMods().Contains("Tremor")) //Tremor Mod Remastered
-                {
-                    BigMods.Add("Altar of Enchantments"); //Altar of Enchantments
-                    BigMods.Add("Blast Furnace"); //Blast Furnace
-                    BigMods.Add("Flesh Workstation"); //Flesh Workstation
-                    BigMods.Add("Magic Workbench"); //Magic Workbench
-                    BigMods.Add("Mineral Transmutator"); //Mineral Transmutator
-                }
-                if (ModLoader.GetLoadedMods().Contains("VampKnives")) //Vampire Knives Expanded
-                {
-                    SmallMods.Add("Knife Worktable"); //Knife Worktable
-                }
-                if (ModLoader.GetLoadedMods().Contains("Exodus") || ModLoader.GetLoadedMods().Contains("GRealm") || ModLoader.GetLoadedMods().Contains("RawExpasion"))
-                {
-                    Vanilla.Add("Campfire"); //Campfire
-                }
-                Vanilla.Add("Water"); //Water
-                Vanilla.Add("Lava"); //Lava
-                Vanilla.Add("Honey"); //Honey
-                #endregion
+                else
+                    VanillaStrings.Add(TileName2);
+
+            } //Adds tile names
+            VanillaStrings.Remove("Table"); //Removes extra name added by Tables and Tables2
+            VanillaStrings.Add("Water"); //Add Water name
+            VanillaStrings.Add("Lava"); //Add Lava name
+            VanillaStrings.Add("Honey"); //Add Honey name
+
+            AllTiles = VanillaStrings.Union(SymbEModStrings).Union(FLModStrings).Union(MSModStrings).Union(TZModStrings).Union(Unknown).ToList();
+
+            VanillaStrings.Sort(); //Alphabetize the list
+            SymbEModStrings.Sort();
+            FLModStrings.Sort();
+            MSModStrings.Sort();
+            TZModStrings.Sort();
+            Unknown.Sort();
+            AllTiles.Sort();
+
+            //string TileListString = string.Join(", ", TileList.ToArray()); //Seperate everything with commas
+
+            string Vanilla = string.Join(", ", VanillaStrings.ToArray()); //0
+            string SymbEMod = string.Join(", ", SymbEModStrings.ToArray()); //1
+            string FLMod = string.Join(", ", FLModStrings.ToArray()); //2
+            string MSMod = string.Join(", ", MSModStrings.ToArray()); //3
+            string TZMod = string.Join(", ", TZModStrings.ToArray()); //4
+            string UnknownMod = string.Join(", ", Unknown.ToArray()); //5
+            string All = string.Join(", ", AllTiles.ToArray()); //6
+
+            if (count > 6)
+                count = 0;
+
+            switch (count)
+            {
+                case 0:
+                    Main.NewTextMultiline("Currently active Vanilla tiles: " + Vanilla + ".");
+                    if (SymbEMod.Any())
+                    {
+                        Main.NewText("Right-click again to see A - E tiles.");
+                        count += 1;
+                    }
+                    else if (FLMod.Any())
+                    {
+                        Main.NewText("Right-click again to see F - L tiles.");
+                        count += 2;
+                    }
+                    else if (MSMod.Any())
+                    {
+                        Main.NewText("Right-click again to see M - S tiles.");
+                        count += 3;
+                    }
+                    else if (TZMod.Any())
+                    {
+                        Main.NewText("Right-click again to see T - Z tiles.");
+                        count += 4;
+                    }
+                    else if (UnknownMod.Any())
+                    {
+                        Main.NewText("Right-click again to see unknown tiles.");
+                        count += 5;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    break;
+                case 1:
+                    Main.NewTextMultiline("Currently active tiles, mods A - E: " + SymbEMod + ".");
+                    if (FLMod.Any())
+                    {
+                        Main.NewText("Right-click again to see F - L tiles.");
+                        count += 1;
+                    }
+                    else if (MSMod.Any())
+                    {
+                        Main.NewText("Right-click again to see M - S tiles.");
+                        count += 2;
+                    }
+                    else if (TZMod.Any())
+                    {
+                        Main.NewText("Right-click again to see T - Z tiles.");
+                        count += 3;
+                    }
+                    else if (UnknownMod.Any())
+                    {
+                        Main.NewText("Right-click again to see unknown tiles.");
+                        count += 4;
+                    }
+                    else
+                    {
+                        Main.NewText("Right-click again to see all tiles.");
+                        count += 5;
+                    }
+                    break;
+                case 2:
+                    Main.NewTextMultiline("Currently active tiles, mods F - L: " + FLMod + ".");
+                    if (MSMod.Any())
+                    {
+                        Main.NewText("Right-click again to see M - S tiles.");
+                        count += 1;
+                    }
+                    else if (TZMod.Any())
+                    {
+                        Main.NewText("Right-click again to see T - Z tiles.");
+                        count += 2;
+                    }
+                    else if (UnknownMod.Any())
+                    {
+                        Main.NewText("Right-click again to see unknown tiles.");
+                        count += 3;
+                    }
+                    else
+                    {
+                        Main.NewText("Right-click again to see all tiles.");
+                        count += 4;
+                    }
+                    break;
+                case 3:
+                    Main.NewTextMultiline("Currently active tiles, mods M - S: " + MSMod + ".");
+                    if (TZMod.Any())
+                    {
+                        Main.NewText("Right-click again to see T - Z tiles.");
+                        count += 1;
+                    }
+                    else if (UnknownMod.Any())
+                    {
+                        Main.NewText("Right-click again to see unknown tiles.");
+                        count += 2;
+                    }
+                    else
+                    {
+                        Main.NewText("Right-click again to see all tiles.");
+                        count += 3;
+                    }
+                    break;
+                case 4:
+                    Main.NewTextMultiline("Currently active tiles, mods T - Z: " + TZMod + ".");
+                    if (UnknownMod.Any())
+                    {
+                        Main.NewText("Right-click again to see unknown tiles.");
+                        count += 1;
+                    }
+                    else
+                    {
+                        Main.NewText("Right-click again to see all tiles.");
+                        count += 2;
+                    }
+                    break;
+                case 5:
+                    Main.NewTextMultiline("Currently active tiles, unknown mods: " + UnknownMod + ".");
+                    Main.NewText("Right-click again to see all tiles.");
+                    count++;
+                    break;
+                case 6:
+                    Main.NewTextMultiline("Currently active tiles: " + All + ".");
+                    Main.NewText("Right-click again to see Vanilla tiles.");
+                    count = 0;
+                    break;
+            }
+            //}
+            #endregion
+        }
+
+        public override void NumDust(int i, int j, bool fail, ref int num)
+        {
+            num = fail ? 1 : 3;
+        }
+
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
+            Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("UniversalCrafter"));
+        }
+
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+            Tile tile = Main.tile[i, j];
+            Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
+            if (Main.drawToScreen) { zero = Vector2.Zero; }
+            int height = tile.frameY == 36 ? 18 : 16;
+            Main.spriteBatch.Draw(mod.GetTexture("Tiles/UniversalCrafter_Glowmask"), new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, height), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+        }
+    }
+
+    public class UCTile : GlobalTile
+    {
+        #region Mods
+        Mod afkPets = ModLoader.GetMod("AFKPETS");
+        Mod alchemistNPC = ModLoader.GetMod("AlchemistNPC");
+        Mod aventadorsMod = ModLoader.GetMod("AventadorsMod");
+        Mod azurium = ModLoader.GetMod("Azurium");
+        Mod bananium = ModLoader.GetMod("Bananium");
+        Mod betterPaint = ModLoader.GetMod("BetterPaint");
+        Mod bismuth = ModLoader.GetMod("Bismuth");
+        Mod bluemagic = ModLoader.GetMod("Bluemagic");
+        Mod boi = ModLoader.GetMod("Boi");
+        Mod calamityMod = ModLoader.GetMod("CalamityMod");
+        Mod chadsFurni = ModLoader.GetMod("chadsfurni");
+        Mod copperPlusMod = ModLoader.GetMod("CopperPlusMod");
+        Mod cosmeticVariety = ModLoader.GetMod("CosmeticVariety");
+        Mod disarray = ModLoader.GetMod("Disarray");
+        Mod draxyMod = ModLoader.GetMod("DraxyMOD");
+        Mod exodus = ModLoader.GetMod("Exodus");
+        Mod extendedCrops = ModLoader.GetMod("ExtendedCrops");
+        Mod fargowiltas = ModLoader.GetMod("Fargowiltas");
+        Mod fishing3 = ModLoader.GetMod("Fishing3");
+        Mod forbiddenCryonics = ModLoader.GetMod("ForbiddenCryonics");
+        Mod gadgetBox = ModLoader.GetMod("GadgetBox");
+        Mod ghoul = ModLoader.GetMod("Ghoul");
+        Mod gRealm = ModLoader.GetMod("GRealm");
+        Mod hmPlus = ModLoader.GetMod("HMPlus");
+        Mod joostMod = ModLoader.GetMod("JoostMod");
+        Mod laugicality = ModLoader.GetMod("Laugicality");
+        Mod mysticality = ModLoader.GetMod("Mysticality");
+        Mod osmium = ModLoader.GetMod("Osmium");
+        Mod project__C = ModLoader.GetMod("Project__C");
+        Mod pumpking = ModLoader.GetMod("Pumpking");
+        Mod sacredTools = ModLoader.GetMod("SacredTools");
+        Mod serrariaModTwo = ModLoader.GetMod("SerrariaModTwo");
+        Mod spiritMod = ModLoader.GetMod("SpiritMod");
+        Mod terrariaDark = ModLoader.GetMod("TerrariaDark");
+        Mod theDeconstructor = ModLoader.GetMod("TheDeconstructor");
+        Mod theSpatiumMod = ModLoader.GetMod("thespatiummod");
+        Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+        Mod tremor = ModLoader.GetMod("Tremor");
+        #endregion
+
+        public override int[] AdjTiles(int type)
+        {
+            List<int> adjTile = new List<int>();
+
+            if (type == mod.TileType("UniversalCrafter"))
+            {
+                Main.LocalPlayer.adjWater = true;
+                Main.LocalPlayer.adjLava = true;
+                Main.LocalPlayer.adjHoney = true;
                 if (NPC.downedSlimeKing)
                 {
-                    VanillaDecor.Add("Soldifier"); //Soldifier
+                    adjTile.Add(TileID.Solidifier);
+                    if (azurium != null)
+                        adjTile.Add(azurium.TileType("SlimeStationTile"));
                 }
                 if (NPC.downedBoss1)
                 {
-                    if (ModLoader.GetLoadedMods().Contains("ThoriumMod"))
-                    {
-                        BigMods.Add("Arcane Armor Fabricator"); //Arcane Armor Fabricator
-                    }
+                    if (thoriumMod != null)
+                        adjTile.Add(thoriumMod.TileType("ArcaneArmorFabricator"));
                 }
                 if (NPC.downedGoblins)
                 {
-                    Vanilla.Add("Tinkerer's Workshop"); //Tinkerer's Workshop
-                    if (ModLoader.GetLoadedMods().Contains("SerreriaModTwo"))
+                    adjTile.Add(TileID.TinkerersWorkbench);
+                    if (serrariaModTwo != null)
                     {
-                        MediumMods.Add("Uncrafting Station");
-                        MediumMods.Add("Un-UncraftingStation");
+                        adjTile.Add(serrariaModTwo.TileType("UncraftingTable"));
+                        adjTile.Add(serrariaModTwo.TileType("UnUnCraftingTable"));
                     }
                 }
                 if (NPC.downedBoss2)
                 {
-                    if (ModLoader.GetLoadedMods().Contains("AlchemistNPC"))
-                    {
-                        MediumMods.Add("Wing of the World"); //Wing of the World
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("Tremor"))
-                    {
-                        BigMods.Add("Devil Forge"); //Devil Forge
-                    }
+                    if (alchemistNPC != null)
+                        adjTile.Add(alchemistNPC.TileType("WingoftheWorld"));
+                    if (tremor != null)
+                        adjTile.Add(tremor.TileType("DevilForge"));
                 }
                 if (NPC.downedBoss3)
                 {
-                    VanillaDecor.Add("Bone Welder"); //Bone Welder
-                    Vanilla.Add("Alchemy Table"); //Alchemy Table
-                    if (ModLoader.GetLoadedMods().Contains("chadsfurni"))
+                    adjTile.Add(TileID.BoneWelder);
+                    adjTile.Add(TileID.AlchemyTable);
+                    Player player = new Player { alchemyTable = true };
+                    if (chadsFurni != null)
                     {
-                        MediumMods.Add("3D Printer"); //3D Printer
-                        MediumMods.Add("Wall-O-Matic"); //Wall-O-Matic
-                        MediumMods.Add("Printer"); //Printer
+                        adjTile.Add(chadsFurni.TileType("printer3"));
+                        adjTile.Add(chadsFurni.TileType("wallomatic"));
+                        adjTile.Add(chadsFurni.TileType("printer"));
                     }
-                    if (ModLoader.GetLoadedMods().Contains("CosmeticVariety"))
+                    if (cosmeticVariety != null)
+                        adjTile.Add(cosmeticVariety.TileType("BeverageBrewer"));
+                    if (laugicality != null)
                     {
-                        BigMods.Add("Beverage Brewer"); //Beverage Brewer
+                        adjTile.Add(laugicality.TileType("CrystalineInfuser"));
+                        adjTile.Add(laugicality.TileType("TransmutationTable"));
                     }
-                    if (ModLoader.GetLoadedMods().Contains("Laugicality"))
-                    {
-                        BigMods.Add("Crystaline Infuser"); //Crystaline Infuser
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("Osmium"))
-                    {
-                        MediumMods.Add("Bar Press"); //Bar Press
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("Tremor"))
-                    {
-                        BigMods.Add("Necromaniac Workbench"); //Necromaniac Workbench
-                    }
+                    if (osmium != null)
+                        adjTile.Add(osmium.TileType("BarPressTile"));
+                    if (tremor != null)
+                        adjTile.Add(tremor.TileType("NecromaniacWorkbenchTile"));
+                    if (afkPets != null)
+                        adjTile.Add(afkPets.TileType("Computer"));
+                }
+                if (NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3)
+                {
+                    if (chadsFurni != null)
+                        adjTile.Add(chadsFurni.TileType("CultivationBox"));
                 }
                 if (NPC.downedQueenBee)
                 {
-                    Vanilla.Add("Imbuing Station"); //Imbuing Station
+                    adjTile.Add(TileID.ImbuingStation);
+                    if (ModLoader.GetLoadedMods().Contains("corofevil"))
+                        adjTile.Add(TileID.WaterFountain);
                 }
                 if (Main.hardMode)
                 {
-                    VanillaDecor.Add("Meat Grinder"); //Meat Grinder
-                    Vanilla.Add("Mythril Anvil"); //Mythril Anvil
-                    Vanilla.Add("Crystal Ball"); //Crystal Ball
-                    Vanilla.Add("Adamantite Forge"); //Adamantite Forge
-                    Vanilla.Add("Autohammer"); //Autohammer
-                    if (ModLoader.GetLoadedMods().Contains("Bismuth"))
+                    adjTile.Add(TileID.MeatGrinder);
+                    adjTile.Add(TileID.MythrilAnvil);
+                    adjTile.Add(TileID.CrystalBall);
+                    adjTile.Add(TileID.AdamantiteForge);
+                    if (bismuth != null)
                     {
-                        MediumMods.Add("Rune Table"); //Rune Table
-                        MediumMods.Add("Orcish Bookcase"); //Orcish Bookcase
+                        adjTile.Add(bismuth.TileType("RuneTable"));
+                        adjTile.Add(bismuth.TileType("OrcishBookcase"));
                     }
-                    if (ModLoader.GetLoadedMods().Contains("CosmeticVariety"))
+                    if (cosmeticVariety != null)
+                        adjTile.Add(cosmeticVariety.TileType("ShadowExtraltar"));
+                    if (joostMod != null)
+                        adjTile.Add(joostMod.TileType("ElementalForge"));
+                    if (laugicality != null)
+                        adjTile.Add(laugicality.TileType("MineralEnchanter"));
+                    if (spiritMod != null)
+                        adjTile.Add(spiritMod.TileType("EssenceDistorter"));
+                    if (theSpatiumMod != null)
+                        adjTile.Add(theSpatiumMod.TileType("CobaltBinder"));
+                    if (tremor != null)
+                        adjTile.Add(tremor.TileType("RecyclerofMatterTile"));
+                    if (chadsFurni != null)
+                        adjTile.Add(chadsFurni.TileType("RimpelstiltskinsLoom"));
+                    if (hmPlus != null)
+                        adjTile.Add(TileID.LivingFire);
+                    if (boi != null)
+                        adjTile.Add(TileID.RainbowBrick);
+                    if (draxyMod != null)
+                        adjTile.Add(draxyMod.TileType("PreBoss__altar"));
+                    if (terrariaDark != null)
+                        adjTile.Add(terrariaDark.TileType("DaedricForge"));
+                    if (extendedCrops != null)
                     {
-                        BigMods.Add("Shadow Extraltar"); //Shadow Extraltar
+                        adjTile.Add(extendedCrops.TileType("ICobaltSeedProcessor"));
+                        adjTile.Add(extendedCrops.TileType("IPalladiumSeedProcessor"));
+                        adjTile.Add(extendedCrops.TileType("JMythrilSeedProcessor"));
+                        adjTile.Add(extendedCrops.TileType("JOrichalcumSeedProcessor"));
+                        adjTile.Add(extendedCrops.TileType("KAdamantiteSeedProcessor"));
+                        adjTile.Add(extendedCrops.TileType("KTitaniumSeedProcessor"));
                     }
-                    if (ModLoader.GetLoadedMods().Contains("JoostMod"))
-                    {
-                        BigMods.Add("Elemental Forge"); //Elemental Forge
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("Laugicality"))
-                    {
-                        BigMods.Add("Mineral Enchanter"); //Mineral Enchanter
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("SpiritMod"))
-                    {
-                        BigMods.Add("Essence Distorter"); //Essence Distorter
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("thespatiummod"))
-                    {
-                        SmallMods.Add("Cobalt Binder"); //Cobalt Binder
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("Tremor"))
-                    {
-                        BigMods.Add("Recycler of Matter"); //Recycler of Matter
-                    }
+                    if (forbiddenCryonics != null)
+                        adjTile.Add(forbiddenCryonics.TileType("SoulWeaverTile"));
                 }
                 if (NPC.downedPirates)
                 {
@@ -412,52 +646,54 @@ namespace UniversalCraft.Tiles
                 }
                 if (NPC.downedMechBossAny)
                 {
-                    VanillaDecor.Add("Steampunk Boiler"); //Steampunk Boiler
-                    VanillaDecor.Add("Flesh Cloning Vat"); //Flesh Cloning Vat
-                    Vanilla.Add("Blend-o-matic"); //Blend-o-Matic
-                    if (ModLoader.GetLoadedMods().Contains("Osmium"))
-                    {
-                        MediumMods.Add("Hallowed Anvil"); //Hallowed Anvil
-                    }
+                    adjTile.Add(TileID.SteampunkBoiler);
+                    adjTile.Add(TileID.FleshCloningVat);
+                    adjTile.Add(TileID.Blendomatic);
+                    if (osmium != null)
+                        adjTile.Add(osmium.TileType("HallowedAnvilTile"));
+                    if (bluemagic != null)
+                        adjTile.Add(bluemagic.TileType("Clentamistation"));
+                    if (betterPaint != null)
+                        adjTile.Add(betterPaint.TileType("PaintMixer"));
+                    if (extendedCrops != null)
+                        adjTile.Add(extendedCrops.TileType("LHallowedSeedProcessor"));
                 }
                 if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
                 {
-                    if (ModLoader.GetLoadedMods().Contains("CopperPlusMod"))
+                    if (copperPlusMod != null)
                     {
-                        MediumMods.Add("Vigolythic Anvil"); //Vigolythic Anvil
-                        MediumMods.Add("Mechanical Forge"); //Mechanical Forge
+                        adjTile.Add(copperPlusMod.TileType("VigolythicAnvil"));
+                        adjTile.Add(copperPlusMod.TileType("OddForge"));
                     }
-                    if (ModLoader.GetLoadedMods().Contains("thespatiummod"))
-                    {
-                        SmallMods.Add("Soulful Binder"); //Soulful Binder
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("ThoriumMod"))
-                    {
-                        BigMods.Add("Soul Forge"); //Soul Forge
-                    }
+                    if (theSpatiumMod != null)
+                        adjTile.Add(theSpatiumMod.TileType("SoulfulBinder"));
+                    if (thoriumMod != null)
+                        adjTile.Add(thoriumMod.TileType("SoulForge"));
+                    if (bananium != null)
+                        adjTile.Add(bananium.TileType("BananaAnvil"));
+                    if (extendedCrops != null)
+                        adjTile.Add(extendedCrops.TileType("MChlorophyteSeedProcessor"));
                 }
                 if (NPC.downedPlantBoss)
                 {
-                    VanillaDecor.Add("Lihzahrd Furnace"); //Lihzahrd Furnace
-                    if (ModLoader.GetLoadedMods().Contains("Exodus"))
+                    adjTile.Add(TileID.Autohammer);
+                    adjTile.Add(TileID.LihzahrdFurnace);
+                    if (exodus != null)
+                        adjTile.Add(exodus.TileType("SecretMilitaryWorkshopTile"));
+                    if (laugicality != null)
+                        adjTile.Add(laugicality.TileType("AncientEnchanter"));
+                    if (pumpking != null || afkPets != null || ghoul != null)
+                        adjTile.Add(TileID.LihzahrdAltar);
+                    if (tremor != null)
+                        adjTile.Add(tremor.TileType("AlchematorTile"));
+                    if (gadgetBox != null)
+                        adjTile.Add(gadgetBox.TileType("LihzahrdWorkshopTile"));
+                    if (aventadorsMod != null)
+                        adjTile.Add(aventadorsMod.TileType("NeonChargerTile"));
+                    if (extendedCrops != null)
                     {
-                        MediumMods.Add("Secret Military Workshop"); //Secret Military Workshop
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("Laugicality"))
-                    {
-                        BigMods.Add("Ancient Enchanter"); //Ancient Enchanter
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("Pumpking"))
-                    {
-                        Vanilla.Add("Lihzahrd Altar"); //Lihzahrd Altar
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("Tremor"))
-                    {
-                        BigMods.Add("Alchemator"); //Alchemator
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("GadgetBox"))
-                    {
-                        SmallMods.Add("Lihzahrd Workshop");
+                        adjTile.Add(extendedCrops.TileType("NSpectreSeedProcessor"));
+                        adjTile.Add(extendedCrops.TileType("OShroomiteSeedProcessor"));
                     }
                 }
                 if (NPC.downedHalloweenTree)
@@ -482,10 +718,8 @@ namespace UniversalCraft.Tiles
                 }
                 if (NPC.downedGolemBoss)
                 {
-                    if (ModLoader.GetLoadedMods().Contains("GRealm"))
-                    {
-                        BigMods.Add("Arcane Welding Station"); //Arcane Welding Station
-                    }
+                    if (gRealm != null)
+                        adjTile.Add(gRealm.TileType("ArcaneWeldingStation"));
                 }
                 if (NPC.downedFishron)
                 {
@@ -493,23 +727,18 @@ namespace UniversalCraft.Tiles
                 }
                 if (NPC.downedMartians)
                 {
-
+                    if (fishing3 != null)
+                        adjTile.Add(fishing3.TileType("AnalyzerTile"));
                 }
                 if (NPC.downedAncientCultist)
                 {
-                    Vanilla.Add("Ancient Manipulator"); //Ancient Manipulator
-                    if (ModLoader.GetLoadedMods().Contains("AlchemistNPC"))
-                    {
-                        MediumMods.Add("Materia Transmutator"); //Materia Transmutator
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("Fargowiltas"))
-                    {
-                        MediumMods.Add("Crucible of the Cosmos"); //Crucible of the Cosmos
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("Project__C"))
-                    {
-                        SmallMods.Add("Energy Condenser"); //Energy Condenser
-                    }
+                    adjTile.Add(TileID.LunarCraftingStation);
+                    if (alchemistNPC != null)
+                        adjTile.Add(alchemistNPC.TileType("MateriaTransmutator"));
+                    if (fargowiltas != null)
+                        adjTile.Add(fargowiltas.TileType("CrucibleCosmosSheet"));
+                    if (project__C != null)
+                        adjTile.Add(project__C.TileType("EnergyCondenser"));
                 }
                 if (NPC.downedTowerSolar)
                 {
@@ -529,209 +758,79 @@ namespace UniversalCraft.Tiles
                 }
                 if (NPC.downedMoonlord)
                 {
-                    if (ModLoader.GetLoadedMods().Contains("CosmeticVariety"))
+                    if (cosmeticVariety != null)
+                        adjTile.Add(cosmeticVariety.TileType("AegisContraption"));
+                    if (theDeconstructor != null)
+                        adjTile.Add(theDeconstructor.TileType("Deconstructor"));
+                    if (theSpatiumMod != null)
+                        adjTile.Add(theSpatiumMod.TileType("CelestialBinder"));
+                    if (tremor != null)
                     {
-                        BigMods.Add("Aegis Contraption"); //Aegis Contraption
+                        adjTile.Add(tremor.TileType("Starvil"));
+                        adjTile.Add(tremor.TileType("AlchemyStationTile"));
                     }
-                    if (ModLoader.GetLoadedMods().Contains("TheDeconstructor"))
-                    {
-                        SmallMods.Add("Lunar Deconstructor"); //Lunar Deconstructor
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("thespatiummod"))
-                    {
-                        SmallMods.Add("Celestial Binder"); //Celestial Binder
-                    }
-                    if (ModLoader.GetLoadedMods().Contains("Tremor"))
-                    {
-                        BigMods.Add("Starvil"); //Starvil
-                        BigMods.Add("Alchemy Station"); //Alchemy Station
-                    }
+                    if (disarray != null)
+                        adjTile.Add(disarray.TileType("ProfaneAnvilTile"));
+                    if (extendedCrops != null)
+                        adjTile.Add(extendedCrops.TileType("PLuminiteSeedProcessor"));
                 }
                 if (NPC.downedSlimeKing || NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3 || NPC.downedQueenBee || Main.hardMode || NPC.downedMechBossAny || NPC.downedPlantBoss || NPC.downedGolemBoss || NPC.downedFishron || NPC.downedAncientCultist || NPC.downedMoonlord)
                 {
-                    if (ModLoader.GetLoadedMods().Contains("Mysticality"))
-                    {
-                        MediumMods.Add("Omni Bench"); //Omni Bench
-                    }
+                    if (mysticality != null)
+                        adjTile.Add(mysticality.TileType("OmniBench"));
                 }
-                if (ModLoader.GetLoadedMods().Contains("SacredTools"))
+                if (sacredTools != null)
                 {
                     if (Abaddon1 || Abaddon2)
-                    {
-                        BigMods.Add("Oblivion Forge"); //Oblivion Forge
-                    }
+                        adjTile.Add(sacredTools.TileType("OblivionForge"));
                     if (Lunarians)
-                    {
-                        BigMods.Add("Lunatic Infuser"); //Lunatic Infuser
-                    }
+                        adjTile.Add(sacredTools.TileType("LunarAltar"));
                     if (Araghur)
                     {
-                        BigMods.Add("Flarium Anvil"); //Flarium Anvil
-                        BigMods.Add("Flarium Workbench"); //Flarium Workbench
-                        BigMods.Add("Flarium Forge"); //Flarium Forge
+                        adjTile.Add(sacredTools.TileType("FlameAnvil"));
+                        adjTile.Add(sacredTools.TileType("FlameWorkbench"));
+                        adjTile.Add(sacredTools.TileType("FlameForge"));
                     }
                     if (Cerena)
                     {
-                        BigMods.Add("Cernium Anvil"); //Cernium Anvil
-                        BigMods.Add("Cernium Forge"); //Cernium Forge
+                        adjTile.Add(sacredTools.TileType("FrostAnvil"));
+                        adjTile.Add(sacredTools.TileType("FrostForge"));
                     }
                     if (Erazor)
-                    {
-                        BigMods.Add("Asthraltite Workbench"); //Asthraltite Workbench
-                    }
+                        adjTile.Add(sacredTools.TileType("AsthralWorkbench"));
                 }
-                if (ModLoader.GetLoadedMods().Contains("CalamityMod"))
+                if (calamityMod != null)
                 {
                     if (DoG)
-                    {
-                        BigMods.Add("Draedon's Forge"); //Draedon's Forge
-                    }
+                        adjTile.Add(calamityMod.TileType("DraedonsForge"));
                 }
-                if (ModLoader.GetLoadedMods().Contains("Bluemagic"))
+                if (bluemagic != null)
                 {
                     if (Abomination && NPC.downedMoonlord)
                     {
-                        BigMods.Add("Purium Forge"); //Purium Forge
-                        BigMods.Add("Purium Anvil"); //Purium Anvil
+                        adjTile.Add(bluemagic.TileType("PuriumForge"));
+                        adjTile.Add(bluemagic.TileType("PuriumAnvil"));
                     }
                 }
-                if (ModLoader.GetLoadedMods().Contains("Pumpking"))
+                if (pumpking != null)
                 {
                     if (TerraLord)
-                    {
-                        MediumMods.Add("Terra Forge"); //Terra Forge
-                    }
+                        adjTile.Add(pumpking.TileType("TerraForge"));
                 }
-                if (ModLoader.GetLoadedMods().Contains("Tremor"))
+                if (tremor != null)
                 {
                     if (TikiTotem)
-                    {
-                        BigMods.Add("Great Anvil"); //Great Anvil
-                    }
+                        adjTile.Add(tremor.TileType("GreatAnvilTile"));
                     if (Trinity)
-                    {
-                        BigMods.Add("Divine Forge"); //Divine Forge
-                    }
+                        adjTile.Add(tremor.TileType("DivineForgeTile"));
                 }
-                #endregion
-
-                AllTiles = Vanilla.Union(VanillaDecor).Union(BigMods).Union(MediumMods).Union(SmallMods).ToList();
-
-                Vanilla.Sort();
-                VanillaDecor.Sort();
-                BigMods.Sort();
-                MediumMods.Sort();
-                SmallMods.Sort();
-                AllTiles.Sort();
-
-                string VanillaString = string.Join(", ", Vanilla.ToArray());
-                string VanillaDecorString = string.Join(", ", VanillaDecor.ToArray());
-                string BigModsString = string.Join(", ", BigMods.ToArray());
-                string MediumModsString = string.Join(", ", MediumMods.ToArray());
-                string SmallModsString = string.Join(", ", SmallMods.ToArray());
-                string AllTilesString = string.Join(", ", AllTiles.ToArray());
-
-                if (cycle > 5)
-                    cycle = 0;
-
-                switch (cycle)
+                if (copperPlusMod != null)
                 {
-                    case 0:
-                        Main.NewText("Currently active Vanilla Tiles: " + VanillaString + ".");
-                        Main.NewText("Right-click again to see Vanilla Decor Tiles.");
-                        cycle++;
-                        break;
-                    case 1:
-                        Main.NewText("Currently active Vanilla Decor Tiles: " + VanillaDecorString + ".");
-                        if (BigMods.Any())
-                        {
-                            Main.NewText("Right-click again to see Big Mod Tiles.");
-                            cycle++;
-                        }
-                        else if (MediumMods.Any())
-                        {
-                            Main.NewText("Right-click to see Medium Mod Tiles.");
-                            cycle += 2;
-                        }
-                        else if (SmallMods.Any())
-                        {
-                            Main.NewText("Right-click again to see Small Mod Tiles.");
-                            cycle += 3;
-                        }
-                        else
-                        {
-                            Main.NewText("Right-click again to see All Tiles.");
-                            cycle += 4;
-                        }
-                        break;
-                    case 2:
-                        Main.NewText("Currently active Big Mod Tiles: " + BigModsString + ".");
-                        if (MediumMods.Any())
-                        {
-                            Main.NewText("Right-click to see Medium Mod Tiles.");
-                            cycle++;
-                        }
-                        else if (SmallMods.Any())
-                        {
-                            Main.NewText("Right-click again to see Small Mod Tiles.");
-                            cycle += 2;
-                        }
-                        else
-                        {
-                            Main.NewText("Right-click again to see All Tiles.");
-                            cycle += 3;
-                        }
-                        break;
-                    case 3:
-                        Main.NewText("Currently active Medium Mod Tiles: " + MediumModsString + ".");
-                        if (SmallMods.Any())
-                        {
-                            Main.NewText("Right-click again to see Small Mod Tiles.");
-                            cycle++;
-                        }
-                        else
-                        {
-                            Main.NewText("Right-click again to see All Tiles.");
-                            cycle += 2;
-                        }
-                        break;
-                    case 4:
-                        Main.NewText("Currently active Small Mod Tiles: " + SmallModsString + ".");
-                        Main.NewText("Right-click again to see All Tiles.");
-                        cycle++;
-                        break;
-                    case 5:
-                        Main.NewText("Currently active tiles: " + AllTilesString + ".");
-                        Main.NewText("Right-click again to see Vanilla Tiles.");
-                        cycle = 0;
-                        break;
-                    default:
-                        return;
+                    if (NPC.downedMoonlord && SuperiorBeing)
+                        adjTile.Add(copperPlusMod.TileType("AtomObliterator"));
                 }
-            //}
-            #endregion
-        }
-
-        public override void NumDust(int i, int j, bool fail, ref int num)
-        {
-            num = fail ? 1 : 3;
-        }
-
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("UniversalCrafter"));
-        }
-
-        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
-        {
-            Tile tile = Main.tile[i, j];
-            Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
-            if (Main.drawToScreen)
-            {
-                zero = Vector2.Zero;
             }
-            int height = tile.frameY == 36 ? 18 : 16;
-            Main.spriteBatch.Draw(mod.GetTexture("Tiles/UniversalCrafter_Glowmask"), new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, height), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            return adjTile.ToArray();
         }
 
         #region Bools
@@ -778,6 +877,10 @@ namespace UniversalCraft.Tiles
         public bool Trinity
         {
             get { return Tremor.TremorWorld.downedBoss[Tremor.TremorWorld.Boss.Trinity]; }
+        }
+        public bool SuperiorBeing
+        {
+            get { return CopperPlusMod.CopperWorld.downedBeing; }
         }
         #endregion
     }

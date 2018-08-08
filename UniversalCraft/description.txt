@@ -3,9 +3,4 @@ This mod adds in a Universal Crafting Station, which functions as every Crafting
 If you would like a crafting station(s) to be added, or maybe a new feature when you right-click the tile, contact me on TCF or elsewhere!
 
 Changelog: 
-v1.5: Redid the right-click list: Now cycles through tiles every click (Vanilla, Vanilla Decor, Big Mods, Medium Mods, Small Mods). Added glowmask to tile. Changed recipe. Added/Removed several tiles from the adjTiles list.
-v1.5.1: Added the Keg (How did I forget this?), added recipes for crafting Water, Lava, and Honey Buckets (1 Empty Bucket while near their respective fluids).
-v1.5.2: Added a Full Tile List to the right-click cycle, added Extractinator function (meaning you can extract Silt and similar by clicking the tile).
-v1.5.2.1: Patch because  l  a  g
-v1.5.3: Added crafting stations from Box of Gadgets and Serraria Mod 2. Added support for adding more right-click features other than the tile list; Any suggestions would be greatly appreciated!
-v1.5.3.1: Added partial Chinese translation.
+v1.6: Redid the right-click lists (again). Now ordered by vanilla, then four sets of mod names (A-E, F-L, M-S, T-Z). Mod names are displayed in Amber next to their respective tiles. Added a ton of tiles from a ton of mods. Cleaned up code a little. Fixed some issues.
