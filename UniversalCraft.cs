@@ -1,33 +1,42 @@
-using Terraria.ID;
+using System;
 using Terraria.ModLoader;
 
 namespace UniversalCraft
 {
-    public class UniversalCraft : Mod
-    {
-        public UniversalCraft()
-        {
-        }
+	public class UniversalCraft : Mod
+	{
+		public static UniversalCraft instance;
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(this);
-            recipe.AddIngredient(ItemID.EmptyBucket, 1);
-            recipe.needWater = true;
-            recipe.SetResult(ItemID.WaterBucket, 1);
-            recipe.AddRecipe();
+		public UniversalCraft()
+		{
+		}
 
-            recipe = new ModRecipe(this);
-            recipe.AddIngredient(ItemID.EmptyBucket, 1);
-            recipe.needLava = true;
-            recipe.SetResult(ItemID.LavaBucket, 1);
-            recipe.AddRecipe();
+		public override void Load()
+		{
+			instance = ModContent.GetInstance<UniversalCraft>();
+		}
 
-            recipe = new ModRecipe(this);
-            recipe.AddIngredient(ItemID.EmptyBucket, 1);
-            recipe.needHoney = true;
-            recipe.SetResult(ItemID.HoneyBucket, 1);
-            recipe.AddRecipe();
-        }
-    }
+		public override void Unload()
+		{
+			instance = null;
+		}
+
+		public override object Call(params object[] args)
+		{
+			CallType callType = (CallType)Convert.ToByte(args[0]);
+			switch (callType)
+			{
+				case CallType.AddTile:
+					break;
+				default:
+					break;
+			}
+			return base.Call(args);
+		}
+	}
+
+	public enum CallType : byte
+	{
+		AddTile
+	}
 }

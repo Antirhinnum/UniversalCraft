@@ -1,6 +1,7 @@
-This mod adds in a Universal Crafting Station, which functions as every Crafting Station in the Vanilla game, along with several modded ones.
+This mod adds in a Universal Crafting Station, which functions as every Crafting Station in Vanilla.
 
-If you would like a crafting station(s) to be added, or maybe a new feature when you right-click the tile, contact me on TCF or elsewhere!
+Modded stations can be added using Mod.Call, the parameters of which are listed on the homepage. 
+If you have a tile that isn't added, you can right-click the orb on the tile to open up a chest. Any crafting station placed in this chest will be counted in the Crafter.
 
 Changelog: 
-v1.6: Redid the right-click lists (again). Now ordered by vanilla, then four sets of mod names (A-E, F-L, M-S, T-Z). Mod names are displayed in Amber next to their respective tiles. Added a ton of tiles from a ton of mods. Cleaned up code a little. Fixed some issues.
+v1.7: Reworked mod.
