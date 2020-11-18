@@ -1,3 +1,0 @@
-C:\Users\Mikey Scott\Documents\My Games\Terraria\ModLoader\Mod Sources\UniversalCraft\obj\Debug\UniversalCraft.csprojResolveAssemblyReference.cache
-C:\Users\Mikey Scott\Documents\My Games\Terraria\ModLoader\Mod Sources\UniversalCraft\obj\Debug\UniversalCraft.csproj.CoreCompileInputs.cache
-C:\Users\Mikey Scott\Documents\My Games\Terraria\ModLoader\Mod Sources\UniversalCraft\obj\Debug\UniversalCraft.csprojAssemblyReference.cache
