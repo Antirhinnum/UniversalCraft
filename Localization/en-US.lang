@@ -19,4 +19,5 @@ MapObject.UniversalCrafterTile=Universal Crafter
 
 == Misc ==
 
+Misc.CallError=Call Error: 
 Misc.UnknownMessage=Mod.Call was called with an unknown message type {0}.

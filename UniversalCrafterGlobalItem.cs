@@ -6,7 +6,7 @@ using UniversalCraft.Tiles;
 
 namespace UniversalCraft
 {
-	public class UniversalCrafterGlobalTile : GlobalItem
+	public class UniversalCrafterGlobalItem : GlobalItem
 	{
 		public override bool UseItem(Item item, Player player)
 		{

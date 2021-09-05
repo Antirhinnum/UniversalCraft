@@ -4,6 +4,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using UniversalCraft.DataStructures;
+using UniversalCraft.Enums;
 
 namespace UniversalCraft
 {
@@ -13,6 +15,7 @@ namespace UniversalCraft
 		public static List<StationInfo> moddedStations;
 
 		private const string UNKNOWN_MESSAGE_KEY = "Mods.UniversalCraft.Misc.UnknownMessage";
+		private const string CALL_ERROR_KEY = "Mods.UniversalCraft.Misc.CallError";
 
 		public UniversalCraft()
 		{
@@ -27,6 +30,8 @@ namespace UniversalCraft
 		public override void Unload()
 		{
 			instance = null;
+
+			moddedStations.Clear();
 			moddedStations = null;
 		}
 
@@ -38,7 +43,7 @@ namespace UniversalCraft
 				switch (callType)
 				{
 					case CallType.AddStation:
-						AddStation(args);
+						AddStation(Convert.ToUInt16(args[1]), (Func<bool>)args[2]);
 						break;
 
 					default:
@@ -50,17 +55,13 @@ namespace UniversalCraft
 			}
 			catch (Exception e)
 			{
-				Logger.Error("Call Error: " + e.StackTrace + e.Message);
-
-				return "Failure, see logs";
+				Logger.Error(Language.GetTextValue(CALL_ERROR_KEY) + e.StackTrace + e.Message);
+				return null;
 			}
 		}
 
-		private void AddStation(object[] args)
+		private void AddStation(ushort type, Func<bool> condition)
 		{
-			ushort type = Convert.ToUInt16(args[1]);
-			Func<bool> condition = (Func<bool>)args[2];
-
 			for (int i = 0; i < moddedStations.Count; i++)
 			{
 				StationInfo info = moddedStations[i];
@@ -85,24 +86,7 @@ namespace UniversalCraft
 
 		public override void PostSetupContent()
 		{
-			//this.Call(0, TileID.DiamondGemspark, new Func<bool>(() => Main.dayTime));
-		}
-	}
-
-	public enum CallType : byte
-	{
-		AddStation
-	}
-
-	public struct StationInfo
-	{
-		public ushort type;
-		public Func<bool> condition;
-
-		public StationInfo(ushort type, Func<bool> condition)
-		{
-			this.type = type;
-			this.condition = condition;
+			this.Call(0, TileID.DiamondGemspark, new Func<bool>(() => Main.dayTime));
 		}
 	}
 }

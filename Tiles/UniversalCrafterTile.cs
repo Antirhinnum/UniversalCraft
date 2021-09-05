@@ -22,18 +22,20 @@ namespace UniversalCraft.Tiles
 			Main.tileLavaDeath[Type] = false;
 			Main.tileContainer[Type] = true;
 
+			//TileID.Sets.BasicChest[Type] = true;
+			TileID.Sets.HasOutlines[Type] = true;
+
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style5x4);
 			TileObjectData.newTile.Height = 3;
 			TileObjectData.newTile.Origin = new Point16(2, 2);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 16 };
 			TileObjectData.newTile.HookCheck = new PlacementHook(new Func<int, int, int, int, int, int>(Chest.FindEmptyChest), -1, 0, true);
 			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(new Func<int, int, int, int, int, int>(Chest.AfterPlacement_Hook), -1, 0, false);
-			//TileObjectData.newTile.HookPostPlaceEveryone = new PlacementHook(ModContent.GetInstance<UniversalCrafterTileEntity>().Hook_AfterPlacement, -1, 0, true); ;
+			//TileObjectData.newTile.HookPostPlaceEveryone = new PlacementHook(ModContent.GetInstance<UniversalCrafterTileEntity>().Hook_AfterPlacement, -1, 0, true);
 			TileObjectData.newTile.AnchorInvalidTiles = new[] { (int)TileID.MagicalIceBlock };
 			TileObjectData.addTile(Type);
 
-			ModTranslation name = CreateMapEntryName();
-			AddMapEntry(new Color(0, 191, 225), name);
+			AddMapEntry(new Color(0, 191, 225), CreateMapEntryName());
 
 			disableSmartCursor = true;
 			adjTiles = new int[]
@@ -63,7 +65,7 @@ namespace UniversalCraft.Tiles
 				TileID.WorkBenches
 			};
 
-			chest = "Universal Crafter";
+			chest = Language.GetTextValue("Mods.UniversalCrafter.MapObject.UniversalCrafterTile");
 			chestDrop = ModContent.ItemType<UniversalCrafterItem>();
 		}
 
@@ -345,7 +347,7 @@ namespace UniversalCraft.Tiles
 		public override bool NewRightClick(int i, int j)
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
-			Point segment = new Point(tile.frameX / 16, tile.frameY / 16);
+			Point segment = new Point(tile.frameX / 18, tile.frameY / 18);
 
 			if (segment == OrbSegment) // Open chest
 			{
@@ -359,14 +361,14 @@ namespace UniversalCraft.Tiles
 					Main.PlaySound(SoundID.MenuClose);
 					player.sign = -1;
 					Main.editSign = false;
-					Main.npcChatText = "";
+					Main.npcChatText = string.Empty;
 				}
 
 				if (Main.editChest)
 				{
 					Main.PlaySound(SoundID.MenuTick);
 					Main.editChest = false;
-					Main.npcChatText = "";
+					Main.npcChatText = string.Empty;
 				}
 
 				if (player.editedChestName)
@@ -416,7 +418,12 @@ namespace UniversalCraft.Tiles
 			}
 			else // List
 			{
-				Main.NewText("Capital H");
+				//Chest.
+				int chest = Chest.FindChestByGuessing(i, j);
+
+				Main.NewText($"Clicked: {i}, {j}");
+				//Main.NewText($"Chest: {Main.chest[chest].x}, {Main.chest[chest].y}");
+				//Main.NewText("Capital H");
 			}
 
 			return true;
@@ -468,7 +475,7 @@ namespace UniversalCraft.Tiles
 			j -= tile.frameY / 16;
 			if (Chest.FindChest(i, j) != -1)
 			{
-				return Chest.DestroyChest(i, j);
+				return Chest.CanDestroyChest(i, j);
 			}
 
 			return base.CanKillTile(i, j, ref blockDamaged);
@@ -476,7 +483,13 @@ namespace UniversalCraft.Tiles
 
 		public override void PlaceInWorld(int i, int j, Item item)
 		{
+			//Chest.AfterPlacement_Hook(i - 2, j - 1, Type);
 			ModContent.GetInstance<UniversalCrafterTileEntity>().Hook_AfterPlacement(i, j, Type, 0, 0);
+
+			//if (Main.netMode == NetmodeID.MultiplayerClient)
+			//{
+			//	//NetMessage.SendData(MessageID.TileSquare)
+			//}
 		}
 
 		//public override void NearbyEffects(int i, int j, bool closer)
