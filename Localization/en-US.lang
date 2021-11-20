@@ -1,23 +1,5 @@
-﻿== Items ==
-
-ItemName.UniversalCrafterItem=Universal Crafter
-ItemTooltip.UniversalCrafterItem=Acts as tons of crafting stations\nNew stations are unlocked as progress is made\nRight-click orb to manually add stations\nRight-click base to see which stations are active\nCan be used as an Extractinator\n'All in one!'
-
-
-
-== Tiles ==
-
-
-
-
-
-== Map Entries ==
-
+﻿ItemName.UniversalCrafter=Universal Crafter
+ItemTooltip.UniversalCrafter=Acts as a ton of crafting stations\nNew stations are unlocked as progress is made\nRight-click base to manually add stations\nRight-click orb to list all active stations\nAll placed Universal Crafters contribute to active stations\nCan be used as an Extractinator\n'All in one!'
 MapObject.UniversalCrafterTile=Universal Crafter
-
-
-
-== Misc ==
-
 Misc.CallError=Call Error: 
 Misc.UnknownMessage=Mod.Call was called with an unknown message type {0}.

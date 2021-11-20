@@ -11,11 +11,10 @@ namespace UniversalCraft
 {
 	public class UniversalCraft : Mod
 	{
-		public static UniversalCraft instance;
-		public static List<StationInfo> moddedStations;
-
 		private const string UNKNOWN_MESSAGE_KEY = "Mods.UniversalCraft.Misc.UnknownMessage";
 		private const string CALL_ERROR_KEY = "Mods.UniversalCraft.Misc.CallError";
+		public static UniversalCraft Instance => ModContent.GetInstance<UniversalCraft>();
+		public static List<StationInfo> StationInfos { get; set; }
 
 		public UniversalCraft()
 		{
@@ -23,16 +22,53 @@ namespace UniversalCraft
 
 		public override void Load()
 		{
-			instance = ModContent.GetInstance<UniversalCraft>();
-			moddedStations = new List<StationInfo>();
+			StationInfos = new List<StationInfo>()
+			{
+				new StationInfo(TileID.WorkBenches,             () => true),
+				new StationInfo(TileID.Furnaces,                () => true),
+				new StationInfo(TileID.Anvils,                  () => true),
+				new StationInfo(TileID.Bookcases,               () => true),
+				new StationInfo(TileID.Bottles,                 () => true),
+				new StationInfo(TileID.Chairs,                  () => true),
+				new StationInfo(TileID.Tables,                  () => true),
+				new StationInfo(TileID.Tables2,                 () => true),
+				new StationInfo(TileID.CookingPots,             () => true),
+				new StationInfo(TileID.Containers,              () => true),
+				new StationInfo(TileID.Containers2,             () => true),
+				new StationInfo(TileID.DyeVat,                  () => true),
+				new StationInfo(TileID.GlassKiln,               () => true),
+				new StationInfo(TileID.HeavyWorkBench,          () => true),
+				new StationInfo(TileID.IceMachine,              () => true),
+				new StationInfo(TileID.Kegs,                    () => true),
+				new StationInfo(TileID.LivingLoom,              () => true),
+				new StationInfo(TileID.Loom,                    () => true),
+				new StationInfo(TileID.Sawmill,                 () => true),
+				new StationInfo(TileID.SkyMill,                 () => true),
+				new StationInfo(TileID.Solidifier,              () => NPC.downedSlimeKing),
+				new StationInfo(TileID.DemonAltar,              () => NPC.downedBoss1),
+				new StationInfo(TileID.Hellforge,               () => NPC.downedBoss2),
+				new StationInfo(TileID.BoneWelder,              () => NPC.downedBoss3),
+				new StationInfo(TileID.AlchemyTable,            () => NPC.downedBoss3),
+				new StationInfo(TileID.TinkerersWorkbench,      () => NPC.downedGoblins),
+				new StationInfo(TileID.ImbuingStation,          () => NPC.downedQueenBee),
+				new StationInfo(TileID.HoneyDispenser,          () => NPC.downedQueenBee),
+				new StationInfo(TileID.MeatGrinder,             () => Main.hardMode),
+				new StationInfo(TileID.MythrilAnvil,            () => Main.hardMode),
+				new StationInfo(TileID.AdamantiteForge,         () => Main.hardMode),
+				new StationInfo(TileID.CrystalBall,             () => Main.hardMode),
+				new StationInfo(TileID.SteampunkBoiler,         () => NPC.downedMechBossAny),
+				new StationInfo(TileID.FleshCloningVat,         () => NPC.downedMechBossAny),
+				new StationInfo(TileID.Blendomatic,             () => NPC.downedMechBossAny),
+				new StationInfo(TileID.Autohammer,              () => NPC.downedPlantBoss),
+				new StationInfo(TileID.LihzahrdFurnace,         () => NPC.downedPlantBoss),
+				new StationInfo(TileID.LunarCraftingStation,    () => NPC.downedAncientCultist)
+			};
 		}
 
 		public override void Unload()
 		{
-			instance = null;
-
-			moddedStations.Clear();
-			moddedStations = null;
+			StationInfos.Clear();
+			StationInfos = null;
 		}
 
 		public override object Call(params object[] args)
@@ -43,11 +79,16 @@ namespace UniversalCraft
 				switch (callType)
 				{
 					case CallType.AddStation:
-						AddStation(Convert.ToUInt16(args[1]), (Func<bool>)args[2]);
+						if (args.Length > 2)
+						{
+							AddStation(Convert.ToUInt16(args[1]), (Func<bool>)args[2]);
+							break;
+						}
+						AddStation(Convert.ToUInt16(args[1]));
 						break;
 
 					default:
-						instance.Logger.Warn(Language.GetTextValue(UNKNOWN_MESSAGE_KEY, args[0]));
+						Instance.Logger.Warn(Language.GetTextValue(UNKNOWN_MESSAGE_KEY, args[0]));
 						break;
 				}
 
@@ -60,33 +101,9 @@ namespace UniversalCraft
 			}
 		}
 
-		private void AddStation(ushort type, Func<bool> condition)
+		private void AddStation(ushort type, Func<bool> condition = null)
 		{
-			for (int i = 0; i < moddedStations.Count; i++)
-			{
-				StationInfo info = moddedStations[i];
-				if (info.type == type)
-				{
-					info.condition = new Func<bool>(() => condition.Invoke() || info.condition.Invoke());
-					return;
-				}
-			}
-
-			moddedStations.Add(new StationInfo(type, condition));
-		}
-
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(instance);
-			recipe.AddIngredient(ItemID.DirtBlock, 10);
-			recipe.AddTile(TileID.DiamondGemspark);
-			recipe.SetResult(ItemID.DiablolistBanner);
-			recipe.AddRecipe();
-		}
-
-		public override void PostSetupContent()
-		{
-			this.Call(0, TileID.DiamondGemspark, new Func<bool>(() => Main.dayTime));
+			StationInfos.Add(new StationInfo(type, condition));
 		}
 	}
 }

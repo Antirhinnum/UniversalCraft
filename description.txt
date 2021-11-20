@@ -1,7 +1,16 @@
-This mod adds in a Universal Crafting Station, which functions as every Crafting Station in Vanilla.
+I'm not dead yet!
 
-Modded stations can be added using Mod.Call, the parameters of which are listed on the homepage. 
-If you have a tile that isn't added, you can right-click the orb on the tile to open up a chest. Any crafting station placed in this chest will be counted in the Crafter.
+This mod adds in one tile: The Universal Crafter. Obtainable a little after starting the game, the Crafter will upgrade itself to function as every crafting station in Terraria as you progress. It also works as an Extractinator!
+
+Playing with other mods? No worries! Right-click the base of the Crafter to open up a chest. Any crafting station placed inside will work as normal!
+Plus, through <hand-wavy magic explanation>, EVERY Crafter contributes! If you have more than 40 stations you need to add, just place down another Crafter and put them in there!
+If you ever forget what all stations you have, right-click the orb and they'll be listed in chat!
+
+As an added bonus, if you're a mod dev, you can add tiles yourself! Check out the homepage for details how!
+
+And before you ask, yes, it works with Magic Storage.
+
+Have fun!
 
 Changelog: 
-v1.7: Reworked mod.
+v2.0: Reworked mod.
