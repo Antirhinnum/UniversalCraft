@@ -1,6 +1,6 @@
 displayName = Universal Crafter
 author = Snek
-version = 2.0.0
+version = 2.0.0.1
 homepage = https://forums.terraria.org/index.php?threads/universal-crafter.62025/
 hideCode = false
 hideResources = false

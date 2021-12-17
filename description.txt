@@ -13,4 +13,5 @@ And before you ask, yes, it works with Magic Storage.
 Have fun!
 
 Changelog: 
-v2.0: Reworked mod.
+v2.0.0: Reworked mod.
+v2.0.0.1: Reupload because of GitHub.
