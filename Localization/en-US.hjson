@@ -1,0 +1,44 @@
+Mods.UniversalCraft:
+{
+	Config:
+	{
+		Header: "Server Config"
+		AutoUnlockStations:
+		{
+			Label: "Auto-unlock stations"
+			Tooltip: "If true, then vanilla and supported modded crafting stations will be automatically unlocked as the player defeats bosses."
+		}
+	}
+	
+	ItemName:
+	{
+		UniversalCrafter: "Universal Crafter"
+	}
+
+	ItemTooltip:
+	{
+		UniversalCrafter:
+			'''
+			Acts as a ton of crafting stations
+			New stations are unlocked as progress is made
+			Right-click base to manually add stations
+			Right-click orb to list all active stations
+			'All in one!'
+			'''
+	}
+
+	MapObject:
+	{
+		UniversalCrafterTile: "{$Mods.UniversalCraft.ItemName.UniversalCrafter}"
+	}
+	
+	Misc:
+	{
+		AddedStation: "Station(s) added!"
+		ExtractinatorAllowed: "Extractinator functionality enabled"
+		NoRecipeStation: "That tile doesn't have any new stations to add."
+		NoRecursion: "You can't place the {$Mods.Universal.ItemName.UniversalCrafter} inside itself!"
+		NoTiles: "No tiles currently added!"
+		TileListing: "Current Tiles"
+	}
+}

@@ -1,73 +1,46 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
+using UniversalCraft.Common.Systems;
 using UniversalCraft.Content.Tiles;
-using UniversalCraft.DataStructures;
 
-namespace UniversalCraft.Common.GlobalTiles
+namespace UniversalCraft.Common.GlobalTiles;
+
+internal sealed class UniversalCrafterGlobalTile : GlobalTile
 {
-	public class UniversalCrafterGlobalTile : GlobalTile
+	public override void Load()
 	{
-		public override int[] AdjTiles(int type)
+		On.Terraria.Recipe.FindRecipes += SpecialRecipeConditions;
+	}
+
+	public override void Unload()
+	{
+		On.Terraria.Recipe.FindRecipes -= SpecialRecipeConditions;
+	}
+
+	/// <summary>
+	/// Hacky workaround for graveyard &amp; snow requirements.
+	/// </summary>
+	private static void SpecialRecipeConditions(On.Terraria.Recipe.orig_FindRecipes orig, bool canDelayCheck)
+	{
+		Player player = Main.LocalPlayer;
+		bool oldZoneSnow = player.ZoneSnow;
+		bool oldZoneGraveyard = player.ZoneGraveyard;
+
+		if (player.adjTile[ModContent.TileType<UniversalCrafterTile>()])
 		{
-			if (type == ModContent.TileType<UniversalCrafterTile>())
-			{
-				HashSet<int> tiles = new HashSet<int>();
-
-				foreach (StationInfo info in UniversalCraft.StationInfos)
-				{
-					if (info.condition is null || info.condition.Invoke())
-					{
-						tiles.Add(info.type);
-					}
-				}
-
-				HandleChestStations(tiles);
-
-				return tiles.ToArray();
-			}
-
-			return base.AdjTiles(type);
+			player.ZoneSnow = true;
+			player.ZoneGraveyard = true;
 		}
 
-		private void HandleChestStations(HashSet<int> tiles)
-		{
-			if (Main.chest is null)
-			{
-				return;
-			}
+		orig(canDelayCheck);
 
-			foreach (Chest chest in Main.chest)
-			{
-				if (chest is null)
-				{
-					continue;
-				}
+		player.ZoneSnow = oldZoneSnow;
+		player.ZoneGraveyard = oldZoneGraveyard;
+	}
 
-				if (chest.bankChest)
-				{
-					continue;
-				}
-
-				Tile tile = Main.tile[chest.x, chest.y];
-
-				if (tile is null)
-				{
-					continue;
-				}
-
-				if (tile.type != ModContent.TileType<UniversalCrafterTile>())
-				{
-					continue;
-				}
-
-				IEnumerable<Item> items = chest.item.Where((item) => item != null && item.createTile > -1);
-				foreach (Item item in items)
-				{
-					tiles.Add(item.createTile);
-				}
-			}
-		}
+	public override int[] AdjTiles(int type)
+	{
+		return type == ModContent.TileType<UniversalCrafterTile>() ? UnlockedStationsSystem.UnlockedStations.ToArray() : base.AdjTiles(type);
 	}
 }

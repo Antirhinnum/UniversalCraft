@@ -1,17 +1,14 @@
-I'm not dead yet!
+This mod adds in one tile: The Universal Crafter. It's obtainable once you get your hands on some Granite.
+It functions as every crafting station you'd reasonably have at any point in the game. For example, you can make Bone Welder recipes after you beat Skeletron.
+If you need a station that isn't auto-unlocked, simply right-click the Crafter while holding one, and it'll be added to the list.
+If you ever need to know which stations you have unlocked, right-click the orb on top of the Crafter to get a list.
 
-This mod adds in one tile: The Universal Crafter. Obtainable a little after starting the game, the Crafter will upgrade itself to function as every crafting station in Terraria as you progress. It also works as an Extractinator!
+Additional Features:
+ - Auto-Unlock Config: You can disable the auto-unlock ability of the Crafter if you find it too cheaty.
+ - Mod Support: This mod works with Magic Storage.
 
-Playing with other mods? No worries! Right-click the base of the Crafter to open up a chest. Any crafting station placed inside will work as normal!
-Plus, through <hand-wavy magic explanation>, EVERY Crafter contributes! If you have more than 40 stations you need to add, just place down another Crafter and put them in there!
-If you ever forget what all stations you have, right-click the orb and they'll be listed in chat!
-
-As an added bonus, if you're a mod dev, you can add tiles yourself! Check out the homepage for details how!
-
-And before you ask, yes, it works with Magic Storage.
-
-Have fun!
+For developers: This mod has Mod.Call functions to check for which stations are currently emulated by the Crafter and to add your own stations.
+More info is on this mod's Steam page.
 
 Changelog: 
-v2.0.0: Reworked mod.
-v2.0.0.1: Reupload because of GitHub.
+ - 3.0.0: Updated to 1.4. Reworked mod (again).

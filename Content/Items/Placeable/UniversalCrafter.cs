@@ -1,40 +1,31 @@
 ﻿using Terraria;
+using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniversalCraft.Content.Tiles;
 
-namespace UniversalCraft.Content.Items.Placeable
+namespace UniversalCraft.Content.Items.Placeable;
+
+internal sealed class UniversalCrafter : ModItem
 {
-	public class UniversalCrafter : ModItem
+	public override void SetStaticDefaults()
 	{
-		public override void SetDefaults()
-		{
-			item.width = 32;
-			item.height = 32;
+		SacrificeTotal = 1;
+	}
 
-			item.maxStack = 999;
-			item.useAnimation = 15;
-			item.useTime = 10;
+	public override void SetDefaults()
+	{
+		Item.DefaultToPlaceableTile(ModContent.TileType<UniversalCrafterTile>());
+		Item.SetShopValues(ItemRarityColor.Blue1, Item.sellPrice(silver: 50));
+	}
 
-			item.consumable = true;
-			item.useTurn = true;
-			item.autoReuse = true;
-
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.rare = ItemRarityID.Blue;
-			item.value = Item.sellPrice(0, 0, 50, 0);
-			item.createTile = ModContent.TileType<UniversalCrafterTile>();
-		}
-
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.Granite, 40);
-			recipe.AddIngredient(ItemID.MeteoriteBar, 10);
-			recipe.AddIngredient(ItemID.FallenStar, 10);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
+	public override void AddRecipes()
+	{
+		CreateRecipe()
+			.AddIngredient(ItemID.Granite, 40)
+			.AddIngredient(ItemID.MeteoriteBar, 10)
+			.AddIngredient(ItemID.FallenStar, 10)
+			.AddTile(TileID.Anvils)
+			.Register();
 	}
 }

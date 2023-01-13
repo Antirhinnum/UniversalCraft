@@ -1,0 +1,23 @@
+This mod adds in one tile: The Universal Crafter. It's obtainable once you get your hands on some Granite.
+It functions as every crafting station you'd reasonably have at any point in the game. For example, you can make Bone Welder recipes after you beat Skeletron.
+If you need a station that isn't auto-unlocked, simply right-click the Crafter while holding one, and it'll be added to the list.
+If you ever need to know which stations you have unlocked, right-click the orb on top of the Crafter to get a list.
+
+Additional Features:
+[list][*]Auto-Unlock Config: You can disable the auto-unlock ability of the Crafter if you find it too cheaty.[*]Mod Support: This mod works with Magic Storage.[/list]
+
+[url=https://github.com/Antirhinnum/UniversalCraft]Source on GitHub[/url]
+
+[b]Call Methods[/b]:
+See [url=https://github.com/tModLoader/tModLoader/wiki/Expert-Cross-Mod-Content#call-aka-modcall-intermediate]Expert Cross Mod Content[/url] for how to use Mod.Call().
+Unless mentioned otherwise, all call methods must be called before recipes are added -- PostSetupContent() works best.
+
+[b]AddStation[/b]:
+[code]mod.Call("AddStation", ushort tileId, Func<bool> condition = null)[/code][list][*]tileId is the tile you'd like to add.
+[*]condition is the optional condition that this tile is unlocked under.
+[*][b]Ex[/b]: Furnace: mod.Call("AddStation", TileID.Furnaces);
+[*][b]Ex[/b]: Mythril Anvil: mod.Call("AddStation", TileID.MythrilAnvil, () => Main.hardMode);[/list]
+
+[b]CheckStation[/b]:
+Returns a bool -- true if the given tile ID is unlocked, false otherwise.
+[code]mod.Call("CheckStation", ushort tileId)[/code][list][*]tileId is the tile you'd like to check for.[/list]
