@@ -6,13 +6,8 @@ using UniversalCraft.Content.Tiles;
 
 namespace UniversalCraft.Content.Items.Placeable;
 
-internal sealed class UniversalCrafter : ModItem
+public sealed class UniversalCrafter : ModItem
 {
-	public override void SetStaticDefaults()
-	{
-		SacrificeTotal = 1;
-	}
-
 	public override void SetDefaults()
 	{
 		Item.DefaultToPlaceableTile(ModContent.TileType<UniversalCrafterTile>());

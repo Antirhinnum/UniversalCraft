@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -36,7 +37,7 @@ public class GlowMaskTile : GlobalTile
 	{
 		GlowAssets = new();
 		UseGlowTexture = new();
-		IL.Terraria.GameContent.Drawing.TileDrawing.DrawSingleTile += HandleModdedGlowMasks_Patch;
+		IL_TileDrawing.DrawSingleTile += HandleModdedGlowMasks_Patch;
 	}
 
 	public override void Unload()
@@ -48,7 +49,7 @@ public class GlowMaskTile : GlobalTile
 
 		GlowAssets = null;
 		UseGlowTexture = null;
-		IL.Terraria.GameContent.Drawing.TileDrawing.DrawSingleTile -= HandleModdedGlowMasks_Patch;
+		IL_TileDrawing.DrawSingleTile -= HandleModdedGlowMasks_Patch;
 	}
 
 	public override void SetStaticDefaults()
@@ -70,6 +71,16 @@ public class GlowMaskTile : GlobalTile
 		// First parameter and what we need to change.
 		// This shouldn't ever change.
 		const int DrawDataArgID = 1;
+
+		// Move closer to the target point.
+		// Match:
+		//        double num9 = Main.timeForVisualEffects * 0.08;
+		if (!c.TryGotoNext(MoveType.After,
+				i => i.MatchLdsfld<Main>(nameof(Main.timeForVisualEffects))
+			))
+		{
+			throw new Exception($"Patch failed: {nameof(HandleModdedGlowMasks_Patch)}");
+		}
 
 		// Get the local ID for the 'color2' variable.
 		// Match:

@@ -10,18 +10,18 @@ internal sealed class UniversalCrafterGlobalTile : GlobalTile
 {
 	public override void Load()
 	{
-		On.Terraria.Recipe.FindRecipes += SpecialRecipeConditions;
+		On_Recipe.FindRecipes += SpecialRecipeConditions;
 	}
 
 	public override void Unload()
 	{
-		On.Terraria.Recipe.FindRecipes -= SpecialRecipeConditions;
+		On_Recipe.FindRecipes -= SpecialRecipeConditions;
 	}
 
 	/// <summary>
 	/// Hacky workaround for graveyard &amp; snow requirements.
 	/// </summary>
-	private static void SpecialRecipeConditions(On.Terraria.Recipe.orig_FindRecipes orig, bool canDelayCheck)
+	private static void SpecialRecipeConditions(On_Recipe.orig_FindRecipes orig, bool canDelayCheck)
 	{
 		Player player = Main.LocalPlayer;
 		bool oldZoneSnow = player.ZoneSnow;

@@ -8,7 +8,4 @@ Additional Features:
  - Mod Support: This mod works with Magic Storage.
 
 For developers: This mod has Mod.Call functions to check for which stations are currently emulated by the Crafter and to add your own stations.
-More info is on this mod's Steam page.
-
-Changelog: 
- - 3.0.0: Updated to 1.4. Reworked mod (again).
+More info is on this mod's GitHub.

@@ -35,6 +35,20 @@ public sealed class UnlockedStationsSystem : ModSystem
 	private static HashSet<string> _unloadedManuallyUnlockedTiles;
 
 	/// <summary>
+	/// The set of all tiles used as crafting stations in recipes.
+	/// </summary>
+	private static HashSet<int> _craftingStations;
+
+	/// <summary>
+	/// The set of all tiles that aren't used as crafting stations in recipes, but should still be addable to the Universal Crafter.
+	/// </summary>
+	private static readonly HashSet<int> _otherStations = new()
+	{
+		TileID.Extractinator,
+		TileID.ChlorophyteExtractinator
+	};
+
+	/// <summary>
 	/// The set of all unlocked tile IDs.
 	/// </summary>
 	public static HashSet<int> UnlockedStations
@@ -56,6 +70,7 @@ public sealed class UnlockedStationsSystem : ModSystem
 		_autoUnlockedTiles = new(TileLoader.TileCount);
 		_manuallyUnlockedTiles = new(TileLoader.TileCount);
 		_unloadedManuallyUnlockedTiles = new();
+		_craftingStations = new();
 
 		StationInfos = new List<StationInfo>()
 		{
@@ -105,6 +120,11 @@ public sealed class UnlockedStationsSystem : ModSystem
 		};
 	}
 
+	public override void PostSetupRecipes()
+	{
+		_craftingStations = Main.recipe.SelectMany(r => r.requiredTile).ToHashSet();
+	}
+
 	/// <summary>
 	/// Adds a tile and, optionally, all tiles it counts as.
 	/// </summary>
@@ -147,6 +167,11 @@ public sealed class UnlockedStationsSystem : ModSystem
 	/// <inheritdoc cref="AddTile(int)"/>
 	private static void AddTile_Inner(int tileId)
 	{
+		if (!_craftingStations.Contains(tileId) && !_otherStations.Contains(tileId))
+		{
+			return;
+		}
+
 		if (tileId < TileID.Count)
 		{
 			switch (tileId)
@@ -174,6 +199,10 @@ public sealed class UnlockedStationsSystem : ModSystem
 				case TileID.AlchemyTable:
 					_manuallyUnlockedTiles.Add(TileID.Bottles);
 					_manuallyUnlockedTiles.Add(TileID.Tables);
+					break;
+
+				case TileID.ChlorophyteExtractinator:
+					_manuallyUnlockedTiles.Add(TileID.Extractinator);
 					break;
 			}
 		}
