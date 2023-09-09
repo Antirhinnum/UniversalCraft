@@ -3,6 +3,7 @@ Mods: {
 		Misc: {
 			AddedStation: Station(s) added!
 			ExtractinatorAllowed: Extractinator functionality enabled
+			ChlorophyteExtractinatorAllowed: Chlorophyte Extractinator functionality enabled
 			NoRecipeStation: That tile doesn't have any new stations to add.
 			NoRecursion: You can't place the {$Mods.UniversalCraft.Items.UniversalCrafter.DisplayName} inside itself!
 			NoTiles: No tiles currently added!

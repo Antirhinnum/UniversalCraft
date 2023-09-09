@@ -1,2 +1,1 @@
-[list][*]Ported to 1.4.4.x.
-[*]Non-station tiles can no longer be placed into the Universal Crafter.[/list]
+[list][*]Added support for the Chlorophyte Extractinator.[/list]

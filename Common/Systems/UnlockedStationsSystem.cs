@@ -45,7 +45,7 @@ public sealed class UnlockedStationsSystem : ModSystem
 	private static readonly HashSet<int> _otherStations = new()
 	{
 		TileID.Extractinator,
-		TileID.ChlorophyteExtractinator
+		TileID.ChlorophyteExtractinator  
 	};
 
 	/// <summary>
@@ -203,7 +203,7 @@ public sealed class UnlockedStationsSystem : ModSystem
 
 				case TileID.ChlorophyteExtractinator:
 					_manuallyUnlockedTiles.Add(TileID.Extractinator);
-					break;
+					break; 
 			}
 		}
 		else
@@ -255,7 +255,11 @@ public sealed class UnlockedStationsSystem : ModSystem
 			Main.NewText(Language.GetTextValue("Mods.UniversalCraft.Misc.NoTiles"));
 		}
 
-		if (unlockedStations.Contains(TileID.Extractinator))
+		if (unlockedStations.Contains(TileID.ChlorophyteExtractinator))
+		{
+			Main.NewText(Language.GetTextValue("Mods.UniversalCraft.Misc.ChlorophyteExtractinatorAllowed"));
+		}
+		else if (unlockedStations.Contains(TileID.Extractinator))
 		{
 			Main.NewText(Language.GetTextValue("Mods.UniversalCraft.Misc.ExtractinatorAllowed"));
 		}

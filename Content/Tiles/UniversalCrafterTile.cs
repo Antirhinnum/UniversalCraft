@@ -16,6 +16,8 @@ namespace UniversalCraft.Content.Tiles;
 public sealed class UniversalCrafterTile : ModTile, IExtractinatorTile
 {
 	bool IExtractinatorTile.ShouldFunctionAsExtractinator => UnlockedStationsSystem.UnlockedStations.Contains(TileID.Extractinator);
+	bool IExtractinatorTile.UseChlorophyteExtractinatorLootTable => UnlockedStationsSystem.UnlockedStations.Contains(TileID.ChlorophyteExtractinator);
+	bool IExtractinatorTile.ShouldDoChlorophyteExtractinatorItemTrades => UnlockedStationsSystem.UnlockedStations.Contains(TileID.ChlorophyteExtractinator); 
 
 	public override void SetStaticDefaults()
 	{
