@@ -63,7 +63,7 @@ public sealed class UnlockedStationsSystem : ModSystem
 	/// <summary>
 	/// A list of all auto-unlockable stations.
 	/// </summary>
-	public static List<StationInfo> StationInfos { get; set; }
+	public static List<StationInfo> StationInfos { get; } = new List<StationInfo>();
 
 	public override void SetStaticDefaults()
 	{
@@ -72,7 +72,7 @@ public sealed class UnlockedStationsSystem : ModSystem
 		_unloadedManuallyUnlockedTiles = new();
 		_craftingStations = new();
 
-		StationInfos = new List<StationInfo>()
+		StationInfos.AddRange(new List<StationInfo>()
 		{
 			new StationInfo(TileID.WorkBenches),
 			new StationInfo(TileID.Furnaces),
@@ -117,16 +117,43 @@ public sealed class UnlockedStationsSystem : ModSystem
 			new StationInfo(TileID.Autohammer, () => NPC.downedPlantBoss),
 			new StationInfo(TileID.LihzahrdFurnace, () => NPC.downedPlantBoss),
 			new StationInfo(TileID.LunarCraftingStation, () => NPC.downedAncientCultist)
-		};
+		});
 	}
 
 	public override void PostSetupRecipes()
 	{
+		// Any tile that's in a crafting recipe...
 		_craftingStations = Main.recipe.SelectMany(r => r.requiredTile).ToHashSet();
+
+		// ... or that counts as a known crafting station.
+		// This helps avoid situations like with Thorium Mod's Soul Forge:
+		// The Soul Forge has two tiles: An old version and a new version.
+		// The old version is unplaceable, but is used in all recipes.
+		// The new version *is* placeable, and counts as the old version.
+		// This leads to a situation where player's can't manually add the Soul Forge to the Universal Crafter because the tile it places isn't used in any recipes.
+		for (int i = TileID.Count; i < TileLoader.TileCount; i++)
+		{
+			ModTile tile = TileLoader.GetTile(i);
+			if (tile.AdjTiles.Length == 0)
+			{
+				continue;
+			}
+
+			_craftingStations.Add(i);
+			foreach (int adjTile in tile.AdjTiles)
+			{
+				_craftingStations.Add(adjTile);
+			}
+		}
+	}
+
+	public override void Unload()
+	{
+		StationInfos.Clear();
 	}
 
 	/// <summary>
-	/// Adds a tile and, optionally, all tiles it counts as.
+	/// Adds a tile and all tiles it counts as.
 	/// </summary>
 	/// <param name="tileId">The tile to add.</param>
 	/// <param name="quiet">If <see langword="true"/>, don't send new tiles anywhere.</param>
@@ -164,7 +191,7 @@ public sealed class UnlockedStationsSystem : ModSystem
 		}
 	}
 
-	/// <inheritdoc cref="AddTile(int)"/>
+	/// <inheritdoc cref="AddTile(int, bool)"/>
 	private static void AddTile_Inner(int tileId)
 	{
 		if (!_craftingStations.Contains(tileId) && !_otherStations.Contains(tileId))
@@ -220,7 +247,7 @@ public sealed class UnlockedStationsSystem : ModSystem
 
 	private static void ProcessAutoUnlockStations()
 	{
-		_autoUnlockedTiles = new(TileLoader.TileCount);
+		_autoUnlockedTiles.Clear();
 
 		if (!ModContent.GetInstance<UniversalCraftConfig>().AutoUnlockStations)
 		{
@@ -232,6 +259,15 @@ public sealed class UnlockedStationsSystem : ModSystem
 			if (info.condition?.Invoke() ?? true)
 			{
 				_autoUnlockedTiles.Add(info.type);
+
+				ModTile modTile = TileLoader.GetTile(info.type);
+				if (modTile is not null)
+				{
+					foreach (int adjTile in modTile.AdjTiles)
+					{
+						_autoUnlockedTiles.Add(adjTile);
+					}
+				}
 			}
 		}
 	}

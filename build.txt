@@ -1,6 +1,6 @@
 displayName = Universal Crafter
 author = Snek
-version = 3.2.0
+version = 3.2.1
 homepage = https://github.com/Antirhinnum/UniversalCraft
 hideCode = false
 hideResources = false

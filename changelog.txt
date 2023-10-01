@@ -1,1 +1,1 @@
-[list][*]Added support for the Chlorophyte Extractinator.[/list]
+[list][*]Fixed a niche issue that stopped Thorium Mod's Soul Forge from being manually added to the Universal Crafter.[/list]
